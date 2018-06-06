@@ -41,7 +41,7 @@ class ContactForm extends Model
             'name' => 'Nome',
             'email' => 'Seu endereço de e-mail',
             'subject' => 'Assunto',
-            'body' => 'Mensagem',   
+            'body' => 'Mensagem',
             'verifyCode' => 'Código de Verificação',
         ];
     }

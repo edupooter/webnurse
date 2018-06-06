@@ -62,8 +62,8 @@ class CategoriaSearch extends Categoria
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'nome', $this->nome])
-		         ->andFilterWhere(['like', 'responsavel', $this->responsavel]);
+        $query->andFilterWhere(['like', '[[nome]]', $this->nome])
+		      ->andFilterWhere(['like', '[[responsavel]]', $this->responsavel]);
 
         return $dataProvider;
     }

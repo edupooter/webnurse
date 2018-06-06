@@ -22,7 +22,7 @@ class Equipamento extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'equipamento';
+        return '{{equipamento}}';
     }
 
     public static function getDb() {

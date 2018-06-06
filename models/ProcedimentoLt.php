@@ -19,7 +19,7 @@ class ProcedimentoLt extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'procedimento_lt';
+        return '{{procedimento_lt}}';
     }
 
     public static function getDb() {

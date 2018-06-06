@@ -22,7 +22,7 @@ class Profissional extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'profissional';
+        return '{{profissional}}';
     }
 
     public static function getDb() {

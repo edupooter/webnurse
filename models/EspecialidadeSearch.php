@@ -59,10 +59,10 @@ class EspecialidadeSearch extends Especialidade
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
+            '[[id]]' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'nome', $this->nome]);
+        $query->andFilterWhere(['like', '[[nome]]', $this->nome]);
 
         return $dataProvider;
     }

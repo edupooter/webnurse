@@ -24,7 +24,7 @@ class Usuario extends ActiveRecord implements IdentityInterface
      */
     public static function tableName()
     {
-        return 'usuario';
+        return '{{usuario}}';
     }
 
     // public static function getDb() {

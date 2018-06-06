@@ -20,7 +20,7 @@ class ProcedimentoEquipamento extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'procedimento_equipamento';
+        return '{{procedimento_equipamento}}';
     }
 
     public static function getDb() {

@@ -42,7 +42,7 @@ class Procedimento extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'procedimento';
+        return '{{procedimento}}';
     }
 
     public static function getDb() {
@@ -181,37 +181,37 @@ class Procedimento extends \yii\db\ActiveRecord
         // Consulta outros procedimentos na mesma sala e horário
         $conflito = Procedimento::find()
             ->select([
-    		        'p1.id',
-    		        'p1.salaId',
-                'p1.inicio',
-    		        'p1.fim',
-                'p1.fimestimado',
-                'p2.id',
-                'p2.nomeId',
-    		        'p2.salaId',
-                'p2.inicio',
-    		        'p2.fim',
-                'p2.fimestimado',
+    		    '[[p1.id]]',
+    		    '[[p1.salaId]]',
+                '[[p1.inicio]]',
+    		    '[[p1.fim]]',
+                '[[p1.fimestimado]]',
+                '[[p2.id]]',
+                '[[p2.nomeId]]',
+    		    '[[p2.salaId]]',
+                '[[p2.inicio]]',
+    		    '[[p2.fim]]',
+                '[[p2.fimestimado]]',
                 ])
-            ->from('procedimento AS p1')
-            ->join('INNER JOIN', 'procedimento AS p2')
-            ->where(['p1.id' => $esteid])
-            ->andWhere('p1.salaId = p2.salaId')
-            ->andWhere('p1.id < p2.id)
+            ->from('{{procedimento}} AS p1')
+            ->join('INNER JOIN', '{{procedimento}} AS p2')
+            ->where(['[[p1.id]]' => $esteid])
+            ->andWhere(['=', '[[p1.salaId]]', '[[p2.salaId]]'])
+            ->andWhere(['<', '[[p1.id]]', '[[p2.id]]])
                 AND (
-                  p1.inicio
-                BETWEEN p2.inicio AND p2.fim
-                  OR p1.fim
-                BETWEEN p2.inicio AND p2.fim
-              	  OR p1.inicio
-                BETWEEN p2.inicio AND p2.fimestimado
-              	  OR p1.fimestimado
-                BETWEEN p2.inicio AND p2.fimestimado
-              	  OR p1.fimestimado
-                BETWEEN p2.inicio AND p2.fim
-              	  OR p1.fim
-                BETWEEN p2.inicio AND p2.fimestimado
-                ')
+                  [[p1.inicio]]
+                BETWEEN [[p2.inicio]] AND [[p2.fim]]
+                  OR [[p1.fim]]
+                BETWEEN [[p2.inicio]] AND [[p2.fim]]
+              	  OR [[p1.inicio]]
+                BETWEEN [[p2.inicio]] AND [[p2.fimestimado]]
+              	  OR [[p1.fimestimado]]
+                BETWEEN [[p2.inicio]] AND [[p2.fimestimado]]
+              	  OR [[p1.fimestimado]]
+                BETWEEN [[p2.inicio]] AND [[p2.fim]]
+              	  OR [[p1.fim]]
+                BETWEEN [[p2.inicio]] AND [[p2.fimestimado]]
+                '])
             ->one();
 
         $cirurgiaconflito = ArrayHelper::toArray($conflito, [
@@ -238,15 +238,13 @@ class Procedimento extends \yii\db\ActiveRecord
         if($outroproced > 0)
         {
             $nomep = ProcedimentoLt::find()
-                ->select('nome')
-                ->where(['id' => $outroprocednomeId])
+                ->select('[[nome]]')
+                ->where(['[[id]]' => $outroprocednomeId])
                 ->one();
 
             $outronome = ArrayHelper::toArray($nomep, [
-                    'app\models\ProcedimentoLt' => [
-                        'nome',
-                      ],
-                  ]);
+                'app\models\ProcedimentoLt' => ['nome'],
+            ]);
 
             $nomeproc = ArrayHelper::getValue($outronome, 'nome');
             $ini = date("d-m-Y H:i", strtotime($outroprocedinicio));
@@ -284,16 +282,16 @@ class Procedimento extends \yii\db\ActiveRecord
         //   ->all();
 
         $query = (new \yii\db\Query())
-              ->select([
-                'profissional.id',
-                'profissional.nome',
-                'categoria.responsavel'
-              ])
-              ->from('profissional')
-              ->join('INNER JOIN', 'categoria',
-                  'profissional.categoriaId = categoria.id')
-              ->where('categoria.responsavel = "Sim"')
-              ->limit(1000);
+            ->select([
+                '[[profissional.id]]',
+                '[[profissional.nome]]',
+                '[[categoria.responsavel]]'
+            ])
+            ->from('{{profissional}}')
+            ->join('INNER JOIN', '{{categoria}}',
+                '[[profissional.categoriaId]] = [[categoria.id]]')
+            ->where(['=', '[[categoria.responsavel]]', 'Sim'])
+            ->limit(1000);
         $command = $query->createCommand();
         $rows = $command->queryAll();
         return $rows;
@@ -310,7 +308,7 @@ class Procedimento extends \yii\db\ActiveRecord
     public function getKitEquipam()
     {
         return Equipamento::find()
-            ->where(['operacional'=>'Sim'])
+            ->where(['[[operacional]]'=>'Sim'])
             ->all();
     }
 
@@ -446,8 +444,8 @@ class Procedimento extends \yii\db\ActiveRecord
             }
         }
 
-        $this->linkAll('profissionais', $profissionais);
-        $this->linkAll('equipamentos', $equipamentos);
+        $this->linkAll('{{profissionais}}', $profissionais);
+        $this->linkAll('{{equipamentos}}', $equipamentos);
 
         parent::afterSave($insert, $changedAttributes);
     }
@@ -455,13 +453,13 @@ class Procedimento extends \yii\db\ActiveRecord
     public function getProfissionais()
     {
         return $this->hasMany(Profissional::className(), ['id' => 'profissionalId'])
-            ->viaTable('procedimento_profissional', ['procedimentoId' => 'id']);
+            ->viaTable('{{procedimento_profissional}}', ['procedimentoId' => 'id']);
     }
 
     public function getEquipamentos()
     {
         return $this->hasMany(Equipamento::className(), ['id' => 'equipamentoId'])
-            ->viaTable('procedimento_equipamento', ['procedimentoId' => 'id']);
+            ->viaTable('{{procedimento_equipamento}}', ['procedimentoId' => 'id']);
     }
 
     // Exemplo de junção

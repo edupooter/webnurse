@@ -42,16 +42,16 @@ class ProfissionalSearch extends Profissional
     public function search($params)
     {
         $query = Profissional::find();
-        
+
                 // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-        
+
         // join tabela categoria
         $query->joinWith('categoria');
-        
+
 
         $this->load($params);
 
@@ -63,14 +63,14 @@ class ProfissionalSearch extends Profissional
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
+            '[[id]]' => $this->id,
             //'categoriaId' => $this->categoriaId,
         ]);
-        
+
         // filtra por nome de profissional ou nome da categoria
-        $query->andFilterWhere(['like', 'profissional.nome', $this->nome])
-            ->andFilterWhere(['like', 'categoria.nome', $this->categoriaId]);
-        
+        $query->andFilterWhere(['like', '[[profissional.nome]]', $this->nome])
+            ->andFilterWhere(['like', '[[categoria.nome]]', $this->categoriaId]);
+
         return $dataProvider;
     }
 }

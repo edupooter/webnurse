@@ -76,7 +76,7 @@ class ProcedimentoSearch extends Procedimento
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
+            '[[id]]' => $this->id,
             //'nomeId' => $this->nomeId,
             //'especialidadeId' => $this->especialidadeId,
             //'salaId' => $this->salaId,
@@ -86,15 +86,15 @@ class ProcedimentoSearch extends Procedimento
         ]);
 
         // filtra pela descrição da coluna: tipo, tabela.coluna, objeto->chave
-        $query->andFilterWhere(['like', 'procedimento_lt.nome', $this->nomeId])
-              ->andFilterWhere(['like', 'situacao.nome', $this->situacaoId])
-              ->andFilterWhere(['like', 'especialidade.nome', $this->especialidadeId])
-              ->andFilterWhere(['like', 'sala.nome', $this->salaId])
-              ->andFilterWhere(['like', 'profissional.nome', $this->responsavelId])
-              ->andFilterWhere(['>=', 'inicio', $this->inicio])
-              ->andFilterWhere(['<=', 'fim', $this->fim])
-              ->andFilterWhere(['<=', 'fimestimado', $this->fimestimado])
-              ->andFilterWhere(['like', 'contaminado', $this->contaminado]);
+        $query->andFilterWhere(['like', '[[procedimento_lt.nome]]', $this->nomeId])
+              ->andFilterWhere(['like', '[[situacao.nome]]', $this->situacaoId])
+              ->andFilterWhere(['like', '[[especialidade.nome]]', $this->especialidadeId])
+              ->andFilterWhere(['like', '[[sala.nome]]', $this->salaId])
+              ->andFilterWhere(['like', '[[profissional.nome]]', $this->responsavelId])
+              ->andFilterWhere(['>=', '[[inicio]]', $this->inicio])
+              ->andFilterWhere(['<=', '[[fim]]', $this->fim])
+              ->andFilterWhere(['<=', '[[fimestimado]]', $this->fimestimado])
+              ->andFilterWhere(['like', '[[contaminado]]', $this->contaminado]);
 
         return $dataProvider;
     }

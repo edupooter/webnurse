@@ -59,13 +59,13 @@ class EquipamentoSearch extends Equipamento
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'manutencao' => $this->manutencao,
+            '[[id]]' => $this->id,
+            '[[manutencao]]' => $this->manutencao,
         ]);
 
-        $query->andFilterWhere(['like', 'nome', $this->nome])
-		      ->andFilterWhere(['like', 'operacional', $this->operacional])
-		      ->andFilterWhere(['like', 'patrimonio', $this->patrimonio]);
+        $query->andFilterWhere(['like', '[[nome]]', $this->nome])
+		      ->andFilterWhere(['like', '[[operacional]]', $this->operacional])
+		      ->andFilterWhere(['like', '[[patrimonio]]', $this->patrimonio]);
 
         return $dataProvider;
     }
