@@ -17,10 +17,11 @@ Thumbs.db
 
 # composer vendor dir
 /vendor
+.env
 
 # composer itself is not needed
 composer.phar
-composer.lock
+#composer.lock
 
 # Mac DS_Store Files
 .DS_Store
