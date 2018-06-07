@@ -191,4 +191,11 @@ class ProcedimentoController extends Controller
         }
     }
 
+    public function actionFinalizar($id)
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
 }

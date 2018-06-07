@@ -31,7 +31,10 @@
 		"kartik-v/yii2-nav-x": "dev-master",
 		"kartik-v/yii2-widget-select2": "^2.1",
 		"ramosisw/yii2-material-dashboard": "dev-master",
-		"kartik-v/yii2-widget-datepicker": "@dev"
+		"kartik-v/yii2-widget-datepicker": "@dev",
+		"csanquer/pdo-service-provider": "~1.1dev",
+		"fxp/composer-asset-plugin": "*",
+		"ext-gd": "*"
 	},
 	"require-dev" : {
 		"yiisoft/yii2-debug" : "*",

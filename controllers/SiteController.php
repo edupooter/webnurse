@@ -122,9 +122,9 @@ class SiteController extends Controller
         return $this->render('ajuda');
     }
 
-    public function actionDesenv($message = 'desenv')
-    {
-        return $this->render('desenv', ['message' => $message]);
-    }
+    // public function actionDesenv($message = 'desenv')
+    // {
+    //     return $this->render('desenv', ['message' => $message]);
+    // }
 
 }

@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label'=>'Local',
                 'attribute'=>'salaId',
                 'value'=>'sala.nome',
-                'options' => ['style' => 'width:75px;'],
+                'options' => ['style' => 'min-width:70px;'],
             ],
             //'responsavelId',
             // [
@@ -66,9 +66,10 @@ $this->params['breadcrumbs'][] = $this->title;
             // ],
             //'inicio:datetime',
             [
-                'label'=>'Início da Cirurgia',
+                'label'=>'Início',
                 'attribute' => 'inicio',
                 'format' => ['datetime', 'php:d-m-Y H:i'],
+                'options' => ['style' => 'min-width:125px;'],
                 'filter' => DateTimePicker::widget([
                     // write model again
                     'model' => $searchModel,
@@ -87,6 +88,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label'=>'Fim Estimado',
                 'attribute' => 'fimestimado',
                 'format' => ['datetime', 'php:d-m-Y H:i'],
+                'options' => ['style' => 'min-width:125px;'],
                 'filter' => DateTimePicker::widget([
                     // write model again
                     'model' => $searchModel,
@@ -105,6 +107,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label'=>'Fim',
                 'attribute' => 'fim',
                 'format' => ['datetime', 'php:d-m-Y H:i'],
+                'options' => ['style' => 'min-width:125px;'],
                 'filter' => DateTimePicker::widget([
                     // write model again
                     'model' => $searchModel,
@@ -118,13 +121,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                 ]),
             ],
-
-            'contaminado',
-
+            [
+                'label'=>'Contam.',
+                'attribute'=>'contaminado',
+                'value'=>'contaminado',
+            ],
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header'=>'Ações',
-                // 'options' => ['style' => 'min-width:70px;'],
             ],
         ],
     ]); ?>

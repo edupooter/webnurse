@@ -4,35 +4,130 @@
 
 use yii\helpers\Html;
 
-$this->title = 'Ajuda WebNurse';
+$this->title = 'Ajuda do sistema WebNurse';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-ajuda">
     <h3><?= Html::encode($this->title) ?></h3>
 
     <section>
-		<strong>Demonstration of a simple page layout using HTML5 tags: header, nav, section, main, article, aside, footer, address.</strong>
+		<strong>Este material serve para orientar o usuário na operação do sistema.</br>
+            Em caso de dúvidas adicionais, entre em contato pelo endereço no final da página.</strong>
 	</section>
 
 	<section id="pageContent">
 		<main role="main">
 			<article>
-				<h2>Stet facilis ius te</h2>
-				<p>Lorem ipsum dolor sit amet, nonumes voluptatum mel ea, cu case ceteros cum. Novum commodo malorum vix ut. Dolores consequuntur in ius, sale electram dissentiunt quo te. Cu duo omnes invidunt, eos eu mucius fabellas. Stet facilis ius te, quando voluptatibus eos in. Ad vix mundi alterum, integre urbanitas intellegam vix in.</p>
+				<h3>Painel</h3>
+				<h5>Serve para auxiliar o Enfermeiro no controle da execução dos
+                    procedimentos cadastrados na tela "Procedimentos", com uma
+                    visão geral dos procedimentos do dia atual.
+                </h5>
+				<h5>Clique no link do quadro desejado (por exemplo, "Situação: Em
+                     Cirurgia"), para listar as cirurgias em andamento na tela
+                     de Procedimentos.
+                 </h5>
+                 <h5>Nota: é possível que sejam mostrados procedimentos "Em andamento"
+                     de datas anteriores, pois o sistema considera todos os
+                     procedimentos sem data de fim cadastrada.
+                 </h5>
 			</article>
 			<article>
-				<h2>Illud mollis moderatius</h2>
-				<p>Eum facete intellegat ei, ut mazim melius usu. Has elit simul primis ne, regione minimum id cum. Sea deleniti dissentiet ea. Illud mollis moderatius ut per, at qui ubique populo. Eum ad cibo legimus, vim ei quidam fastidii.</p>
+                <h3>Procedimentos</h3>
+				<h5>Serve para listar os procedimentos cadastrados. Permite buscar
+                    um ou mais procedimentos específicos a partir de termos chave
+                    (pode ser apenas parte da palavra) e/ou definindo datas de início
+                    e fim.
+                </h5>
+                <ul>
+                    <li><h5>Por padrão, ele exibe os com data de início de hoje (meia-noite).
+                    Caso listar os procedimentos com data anterior a hoje, clique
+                    no ícone <span class="glyphicon glyphicon-remove"></span>, ao lado
+                    da caixa de data.
+                </h5>
+                </li>
+                <li>
+				<h5>Se precisar cadastrar um novo procedimento, clique no botão
+                    <span class="btn btn-success">Incluir Procedimento</span>,
+                    localizado no topo da página, abaixo do título.
+                </h5>
+                </li>
+                <li>
+                <h5>Na coluna "Ações", à direita da tabela, são mostrados os ícones
+                     <span class="glyphicon glyphicon-eye-open">"olho"</span>,
+                     <span class="glyphicon glyphicon-pencil">"lápis"</span> e
+                     <span class="glyphicon glyphicon-trash">"lixeira"</span>,
+                    que representam as ações de "exibir", "alterar" e "excluir",
+                    respectivamente.
+                </h5>
+                </li>
+                <li>
+                <h5>Nota: por uma questão técnica, apenas alguns detalhes são
+                    mostrados tela de exibição. Portanto, para consultar todas as
+                    informações cadastradas em um procedimento, é preciso abrir a
+                    tela de alteração daquele procedimento pelo ícone do lápis
+                    <span class="glyphicon glyphicon-pencil"></span>, ou pelo
+                    botão <span class="btn btn-primary">Alterar</span>
+                </h5>
+                </li>
+                <li>
+                <h5>Na tela de alteração, os campos "Equipe de Profissionais" e
+                    "Kit de Equipamentos" podem receber um mais nomes de profissionais
+                    e equipamentos. Basta digitar para selecionar os desejados,
+                    e clicar no "X" para removê-los.
+                </h5>
+                </li>
+                <li>
+                <h5>O campo "Responsável" somente exibe profissionais habilitados
+                    como responsáveis por procedimentos cirúrgicos, no respectivo
+                    cadastro de "Categoria Profissional".
+                </h5>
+                </li>
+                <li>
+                <h5>Com o passar do tempo, o sistema estimará o fim para os
+                    procedimentos, informando uma dica no campo "Fim estimado",
+                    com base na duração média dos procedimentos cadastrados
+                    anteriormente.
+                    Também mostrará os equipamentos mais utilizados para o tipo
+                    de procedimento, especialidade e responsável selecionados.
+                </h5>
+                </li>
+            </ul>
 			</article>
 			<article>
-				<h2>Ex ignota epicurei quo</h2>
-				<p>Quo debet vivendo ex. Qui ut admodum senserit partiendo. Id adipiscing disputando eam, sea id magna pertinax concludaturque. Ex ignota epicurei quo, his ex doctus delenit fabellas, erat timeam cotidieque sit in. Vel eu soleat voluptatibus, cum cu exerci mediocritatem. Malis legere at per, has brute putant animal et, in consul utamur usu.</p>
-			</article>
-			<article>
-				<h2>His at autem inani volutpat</h2>
-				<p>Te has amet modo perfecto, te eum mucius conclusionemque, mel te erat deterruisset. Duo ceteros phaedrum id, ornatus postulant in sea. His at autem inani volutpat. Tollit possit in pri, platonem persecuti ad vix, vel nisl albucius gloriatur no.</p>
+                <h3>Cadastro</h3>
+				<h5>Serve para gerenciar os mais diversos cadastros necessários
+                    para o funcionamento do sistema. O modo de uso é muito
+                    semelhante ao cadastro de procedimentos.
+                    <ul>
+                        <li>Profissionais: mantém os nomes dos profissionais do
+                            hospital, e a informação de sua categoria profissional;
+                        </li>
+                        <li>Equipamentos Cirúrgicos: informações dos Equipamentos
+                            disponíveis no centro cirúrgico. Inclui informações
+                            para auxiliar no controle de manutenção periódica;
+                        </li>
+                        <li>Especialidades Médicas: nomeclatura para definir a
+                            natureza médica dos procedimentos;
+                        </li>
+                        <li>Categorias Profissionais: define o enquadramento dos
+                            profissionais cadastrados;
+                        </li>
+                        <li>Tipos de Procedimento: descreve os nomes utilizados
+                            para os procedimentos no hospital;
+                        </li>
+                        <li>Salas Cirúrgicas: informa as salas disponíveis no bloco;
+                        </li>
+                        <li>Situações (status de cirurgia): orienta a situação do
+                            procedimento, conforme sua evolução; é importante manter
+                            cadastradas as situações "Finalizado" e "Em cirurgia",
+                            para efeito de controle no Painel.
+                        </li>
+                    </ul>
+                </h5>
 			</article>
 		</main>
+        </br>
 		<aside>
 			<div>CONTATO:</div>
 			<div>Eduardo Pooter Reis</div>

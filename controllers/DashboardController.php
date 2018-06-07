@@ -48,12 +48,18 @@ class DashboardController extends \yii\web\Controller
         $atrasados = Dashboard::atrasados();
         $andamento = Dashboard::andamento();
         $finalizados = Dashboard::finalizados();
+        $repetidos = Dashboard::repetidos();
+        $salas = Dashboard::salas();
+        $participantes = Dashboard::participantes();
 
         return $this->render('view', [
             'marcados' => $marcados,
             'atrasados' => $atrasados,
             'andamento' => $andamento,
             'finalizados' => $finalizados,
+            'repetidos' => $repetidos,
+            'salas' => $salas,
+            'participantes' => $participantes,
         ]);
     }
 

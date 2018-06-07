@@ -13,39 +13,9 @@ use \yii\db\Query;
  */
 class Dashboard extends ProcedimentoSearch
 {
-    // /**
-    //  * {@inheritdoc}
-    //  */
-    // public static function tableName()
-    // {
-    //     return 'marcadas_hoje';
-    // }
-    //
-    // public static function getDb() {
-    //     //return Yii::$app->get('hcpa');
-    //     return Yii::$app->get(Yii::$app->user->identity->hospital);
-    // }
-    //
-    // /**
-    //  * {@inheritdoc}
-    //  */
-    // public function rules()
-    // {
-    //     return [
-    //         [['marcadas'], 'integer'],
-    //     ];
-    // }
-
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
-    {
-        return [
-            'marcadas' => 'Cirurgias de hoje',
-            'atrasadas' => 'Cirurgias atrasadas',
-        ];
-    }
 
     public function marcados()
     {
@@ -98,18 +68,19 @@ class Dashboard extends ProcedimentoSearch
         return $query;
     }
 
+    public function repetidos()
+    {
+
+    }
+
+    public function salas()
+    {
+
+    }
+
     public function participantes()
     {
-        $hoje1 = date('Y-m-d 00:00:00');
-        $hoje2 = date('Y-m-d 23:59:59');
 
-        $query = (new Query())
-            ->from('{{procedimento}}')
-            ->where(['>', '[[inicio]]', $hoje1])
-            ->andWhere(['<', '[[inicio]]', $hoje2])
-            ->andWhere(['IS NOT', '[[fim]]', null])
-            ->count();
-        return $query;
     }
 
 }

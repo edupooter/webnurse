@@ -92,34 +92,38 @@ use kartik\select2\Select2;
     -->
   	<?= $form->field($model, 'inicio')->widget(DateTimePicker::classname(), [
   	    'name' => 'datetime_inicio',
-      	'options' => [
-      	    'placeholder' => 'Data e hora de início',
-      	    //'value' => Yii::$app->formatter->asDatetime($model->inicio),
+        'options' => [
+            'placeholder' => 'Data e hora de início',
+            //'value' => Yii::$app->formatter->asDatetime($model->inicio),
       	],
   	    'type' => DateTimePicker::TYPE_COMPONENT_PREPEND,
   	    'layout' => '{picker}{input}{remove}',
   	    'readonly' => true,
   	    //'convertFormat' => true,
   	    'pluginOptions' => [
-  	        'todayHighlight' => true,
-            'autoclose' => true,
-  	        //'startDate' => date('d-m-Y h:i'),
-  	        //'hoursDisabled' => '0,1,2,3,4,5,6,19,20,21,22',
-            //'daysOfWeekDisabled' => '0,6',
-  	        //'format' => 'dd-mm-yyyy hh:ii',
+  	         'todayHighlight' => true,
+             'todayBtn' => true,
+             'autoclose' => true,
+             //'format' => 'd-m-Y H:i:s',
+  	         //'startDate' => date('d-m-Y h:i'),
+  	         //'hoursDisabled' => '0,1,2,3,4,5,6,19,20,21,22',
+             //'daysOfWeekDisabled' => '0,6',
+  	         //'format' => 'dd-m-yyyy hh:i:s',
       	]
-    ]); ?>
+      ]); ?>
 
     <?= $form->field($model, 'fimestimado')->widget(DateTimePicker::classname(), [
         'name' => 'datetime_fimestimado',
         'options' => [
             'placeholder' => 'Previsão de encerramento',
+            //'value' => Yii::$app->formatter->asDatetime($model->fimestimado),
         ],
         'type' => DateTimePicker::TYPE_COMPONENT_PREPEND,
         'layout' => '{picker}{input}{remove}',
         'readonly' => true,
         'pluginOptions' => [
             'todayHighlight' => false,
+            'todayBtn' => true,
             'autoclose' => true,
         ]
     ]); ?>
@@ -128,12 +132,14 @@ use kartik\select2\Select2;
         'name' => 'datetime_fim',
         'options' => [
             'placeholder' => 'Data e hora de fim',
+            //'value' => Yii::$app->formatter->asDatetime($model->fim),
         ],
   	    'type' => DateTimePicker::TYPE_COMPONENT_PREPEND,
         'layout' => '{picker}{input}{remove}',
         'readonly' => true,
 	      'pluginOptions' => [
   	        'todayHighlight' => false,
+            'todayBtn' => true,
             'autoclose' => true,
       	]
     ]); ?>

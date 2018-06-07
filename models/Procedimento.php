@@ -444,8 +444,8 @@ class Procedimento extends \yii\db\ActiveRecord
             }
         }
 
-        $this->linkAll('{{profissionais}}', $profissionais);
-        $this->linkAll('{{equipamentos}}', $equipamentos);
+        $this->linkAll('profissionais', $profissionais);
+        $this->linkAll('equipamentos', $equipamentos);
 
         parent::afterSave($insert, $changedAttributes);
     }

@@ -15,8 +15,8 @@ $config = [
         ],
         'formatter' => [
             'dateFormat' => 'php:d-m-Y',
-            'datetimeFormat' => 'php:d-m-Y H:i',
-            'timeFormat' => 'php:H:i',
+            'datetimeFormat' => 'php:d-m-Y H:i:s',
+            'timeFormat' => 'php:H:i:s',
             'decimalSeparator' => ',',
             'thousandSeparator' => '.',
             'currencyCode' => 'R$',
@@ -29,7 +29,7 @@ $config = [
         'session' => [
             'timeout' => 3600,
 		        'class' => 'yii\web\DbSession',
-		        'sessionTable' => 'YiiSession',
+		        'sessionTable' => 'yiisession',
         ],
         'user' => [
             'identityClass' => 'app\models\Usuario',
