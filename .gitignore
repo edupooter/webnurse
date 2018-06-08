@@ -37,9 +37,6 @@ Comandos GIT.txt
 /webnurse.git
 /webnurse.git.bfg-report
 
-# senhas
-/config/db.php
-
 # debug
 /web/index.php
 
