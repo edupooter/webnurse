@@ -11,7 +11,9 @@ $this->title = 'WebNurse';
 
         <p class="lead">Sistema de controle de procedimentos cirúrgicos para Enfermagem</p>
 
-        <p><a class="btn btn-lg btn-success" href="/dashboard/view">Comece aqui</a></p>
+        <p><?= Html::a('Comece aqui', ['/dashboard/view'],
+            ['class' => 'btn-lg btn-success']) ?></p>
+
     </div>
 
 </div>
