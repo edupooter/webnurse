@@ -29,10 +29,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'id',
             'nome',
+            'excluido:datetime',
 
             [
-              'class' => 'yii\grid\ActionColumn',
-              'header'=>'Ações',
+                'class' => 'yii\grid\ActionColumn',
+                'header'=>'Ações',
             ],
         ],
     ]); ?>

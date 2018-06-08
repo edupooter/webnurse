@@ -53,6 +53,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]),
             ],
 
+            'excluido:datetime',
+
             [
               'class' => 'yii\grid\ActionColumn',
               'header'=>'Ações',

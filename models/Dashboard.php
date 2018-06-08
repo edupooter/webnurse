@@ -26,6 +26,7 @@ class Dashboard extends ProcedimentoSearch
             ->from('{{procedimento}}')
             ->where(['>', '[[inicio]]', $hoje1])
             ->andWhere(['<', '[[inicio]]', $hoje2])
+            ->andWhere(['is', '[[excluido]]', null])
             ->count();
 
         return $query;
@@ -41,6 +42,7 @@ class Dashboard extends ProcedimentoSearch
             ->where(['like', '[[inicio]]', $hoje])
             ->andWhere(['<', '[[inicio]]', $agora])
             ->andWhere(['not in', '[[situacaoId]]', [5, 7, 9]])
+            ->andWhere(['is', '[[excluido]]', null])
             ->count();
         return $query;
     }
@@ -50,6 +52,7 @@ class Dashboard extends ProcedimentoSearch
         $query = (new Query())
             ->from('{{procedimento}}')
             ->where(['in', '[[situacaoId]]', [5]])
+            ->andWhere(['is', '[[excluido]]', null])
             ->count();
         return $query;
     }
@@ -64,13 +67,25 @@ class Dashboard extends ProcedimentoSearch
             ->where(['>', '[[inicio]]', $hoje1])
             ->andWhere(['<', '[[inicio]]', $hoje2])
             ->andWhere(['IS NOT', '[[fim]]', null])
+            ->andWhere(['is', '[[excluido]]', null])
             ->count();
         return $query;
     }
 
     public function repetidos()
     {
+        $hoje1 = date('Y-m-d 00:00:00');
+        $hoje2 = date('Y-m-d 23:59:59');
 
+        $resultado = new ProcedimentoSearch;
+
+        $resultado->where(['>', '[[inicio]]', $hoje1])
+            ->andWhere(['<', '[[inicio]]', $hoje2]);
+            ->andWhere(['is', '[[excluido]]', null])
+        // $total = $query->sum('cost');
+        // $revenue = $query->sum('revenue');
+
+        return $query;
     }
 
     public function salas()

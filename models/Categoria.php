@@ -51,6 +51,17 @@ class Categoria extends \yii\db\ActiveRecord
             'id' => 'ID',
             'nome' => 'Descrição da Categoria',
             'responsavel' => 'Responsável por Procedimentos',
+            'excluido' => 'Excluído em',
+        ];
+    }
+
+    public function behaviors() {
+        return [
+            [
+                'class' => \cornernote\softdelete\SoftDeleteBehavior::className(),
+                'attribute' => 'excluido',
+                'value' => new \yii\db\Expression('NOW()'),
+            ],
         ];
     }
 

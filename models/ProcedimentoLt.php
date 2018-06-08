@@ -48,6 +48,17 @@ class ProcedimentoLt extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'nome' => 'Nome',
+            'excluido' => 'Excluído em',
+        ];
+    }
+
+    public function behaviors() {
+        return [
+            [
+                'class' => \cornernote\softdelete\SoftDeleteBehavior::className(),
+                'attribute' => 'excluido',
+                'value' => new \yii\db\Expression('NOW()'),
+            ],
         ];
     }
 

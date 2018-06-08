@@ -34,6 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'password',
             //'authKey',
             'hospital',
+            'excluido:datetime',
 
             [
               'class' => 'yii\grid\ActionColumn',

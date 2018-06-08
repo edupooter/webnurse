@@ -23,6 +23,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Restaurar', ['undelete', 'id' => $model->id],
+            ['class' => 'btn btn-sucess']) ?>
     </p>
 
     <?= DetailView::widget([
@@ -33,6 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'patrimonio',
             'operacional',
             'manutencao:date',
+            'excluido:datetime',
         ],
     ]) ?>
 

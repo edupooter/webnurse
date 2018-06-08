@@ -23,32 +23,31 @@
 		"yiisoft/yii2" : ">=2.0.5",
 		"yiisoft/yii2-bootstrap" : "*",
 		"yiisoft/yii2-swiftmailer" : "*",
-		"kartik-v/yii2-widget-datetimepicker" : "*",
-		"yiisoft/yii2-authclient": "^2.1",
+		"kartik-v/yii2-widget-datepicker": "@dev",
+		"kartik-v/yii2-widget-datetimepicker" : "*",		
 		"mootensai/yii2-enhanced-gii": "dev-master",
-		"cornernote/yii2-linkall": "*",
-		"phpoffice/phpspreadsheet": "^1.2",
+		"cornernote/yii2-linkall": "*",		
 		"kartik-v/yii2-nav-x": "dev-master",
 		"kartik-v/yii2-widget-select2": "^2.1",
-		"ramosisw/yii2-material-dashboard": "dev-master",
-		"kartik-v/yii2-widget-datepicker": "@dev",
+		"ramosisw/yii2-material-dashboard": "dev-master",		
 		"csanquer/pdo-service-provider": "~1.1dev",
 		"fxp/composer-asset-plugin": "*",
-		"ext-gd": "*"
+		"ext-gd": "*",
+		"cornernote/yii2-softdelete": "*"		
 	},
 	"require-dev" : {
 		"yiisoft/yii2-debug" : "*",
 		"yiisoft/yii2-gii" : "*",
 		"yiisoft/yii2-faker" : "*"
 	},
-	"config": {
+	"config": {			
 			"process-timeout": 1800,
-			"fxp-asset":{
-					"installer-paths": {
-							"npm-asset-library": "vendor/npm",
-							"bower-asset-library": "vendor/bower"
-					}
-			}
+            "fxp-asset":{
+                    "installer-paths": {
+                            "npm-asset-library": "vendor/npm",
+                            "bower-asset-library": "vendor/bower"
+                    }
+            }	
 	},
 	"scripts" : {
 		"post-create-project-cmd" : "yii\\composer\\Installer::postCreateProject"

@@ -126,6 +126,22 @@ class CategoriaController extends Controller
     }
 
     /**
+     * Undeletes an existing Categoria model.
+     * @param string $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionUndelete($id)
+    {
+        $model = $this->findModel($id);
+
+        if($model->excluido !== null)
+            $this->findModel($id)->unDelete();
+
+        return $this->redirect(['index']);
+    }
+
+    /**
      * Finds the Categoria model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id

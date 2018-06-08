@@ -105,6 +105,7 @@ class Procedimento extends \yii\db\ActiveRecord
             'fim' => 'Fim',
             'fimestimado' => 'Fim estimado',
             'contaminado' => 'Contaminado?',
+            'excluido' => 'Excluído em',
         ];
     }
 
@@ -212,6 +213,7 @@ class Procedimento extends \yii\db\ActiveRecord
               	  OR [[p1.fim]]
                 BETWEEN [[p2.inicio]] AND [[p2.fimestimado]]
                 '])
+            ->andWhere(['is', '[[procedimento.excluido]]', null])
             ->one();
 
         $cirurgiaconflito = ArrayHelper::toArray($conflito, [
@@ -291,10 +293,11 @@ class Procedimento extends \yii\db\ActiveRecord
             ->join('INNER JOIN', '{{categoria}}',
                 '[[profissional.categoriaId]] = [[categoria.id]]')
             ->where(['=', '[[categoria.responsavel]]', 'Sim'])
-            ->limit(1000);
-        $command = $query->createCommand();
-        $rows = $command->queryAll();
-        return $rows;
+            ->andWhere(['is', '[[profissional.excluido]]', null])
+            ->andWhere(['is', '[[categoria.excluido]]', null])
+            ->all();
+
+        return $query;
 
         // echo $command->sql;
         // exit;
@@ -302,41 +305,49 @@ class Procedimento extends \yii\db\ActiveRecord
 
     public function getEquipe()
     {
-        return Profissional::find()->all();
+        return Profissional::find()
+            ->where(['is', '[[excluido]]', null])
+            ->all();
     }
 
     public function getKitEquipam()
     {
         return Equipamento::find()
             ->where(['[[operacional]]'=>'Sim'])
+            ->andWhere(['is', '[[excluido]]', null])
             ->all();
     }
 
     // Para popular o dropDownList do form
     public function getProcedimentosLt()
     {
-        return ProcedimentoLt::find()->all();
+        return ProcedimentoLt::find()->where(['is', '[[excluido]]', null])->all();
     }
 
     public function getSituacoes()
     {
-        return Situacao::find()->all();
+        return Situacao::find()->where(['is', '[[excluido]]', null])->all();
     }
 
     public function getEspecialidades()
     {
-        return Especialidade::find()->all();
+        return Especialidade::find()->where(['is', '[[excluido]]', null])->all();
     }
 
     public function getSalas()
     {
-        return Sala::find()->all();
+        return Sala::find()->where(['is', '[[excluido]]', null])->all();
     }
 
     public function behaviors()
     {
         return [
             LinkAllBehavior::className(),
+            [
+                'class' => \cornernote\softdelete\SoftDeleteBehavior::className(),
+                'attribute' => 'excluido',
+                'value' => new \yii\db\Expression('NOW()'),
+            ],
         ];
     }
 

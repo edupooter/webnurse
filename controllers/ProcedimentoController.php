@@ -174,6 +174,16 @@ class ProcedimentoController extends Controller
         return $this->redirect(['index']);
     }
 
+    public function actionUndelete($id)
+    {
+        $model = $this->findModel($id);
+
+        if($model->excluido !== null)
+            $this->findModel($id)->unDelete();
+
+        return $this->redirect(['index']);
+    }
+
     /**
      * Finds the Procedimento model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -191,11 +201,11 @@ class ProcedimentoController extends Controller
         }
     }
 
-    public function actionFinalizar($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
+        // public function actionFinalizar($id)
+        // {
+        //     $this->findModel($id)->delete();
+        //
+        //     return $this->redirect(['index']);
+        // }
 
 }

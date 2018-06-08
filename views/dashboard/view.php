@@ -117,7 +117,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <tbody>
                                     <tr>
                                         <td>Implante de cateter duplo jota</td>
-                                        <td>4</td>
+                                        <td><?= Html::encode("{$finalizados}") ?></td>
                                     </tr>
                                     <tr>
                                         <td>Amidalectomia</td>

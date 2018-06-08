@@ -58,12 +58,26 @@ class Equipamento extends \yii\db\ActiveRecord
             'patrimonio' => 'Número de Patrimônio',
             'operacional' => 'Está operacional?',
             'manutencao' => 'Último envio para manutenção',
+            'excluido' => 'Excluído em',
+        ];
+    }
+
+    public function behaviors() {
+        return [
+            [
+                'class' => \cornernote\softdelete\SoftDeleteBehavior::className(),
+                'attribute' => 'excluido',
+                'value' => new \yii\db\Expression('NOW()'),
+            ],
         ];
     }
 
     public static function getEquipamentoPeloNome($nome)
     {
-        $equipamento = Equipamento::find()->where(['nome' => $nome])->one();
+        $equipamento = Equipamento::find()
+            ->where(['nome' => $nome])
+            ->andWhere(['is', '[[excluido]]', null])
+            ->one();
         // if (!$equipamento) {
         //     $equipamento = new Equipamento();
         //     $equipamento->nome = $nome;

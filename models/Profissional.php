@@ -55,12 +55,25 @@ class Profissional extends \yii\db\ActiveRecord
             'id' => 'ID',
             'nome' => 'Nome',
             'categoriaId' => 'Categoria Profissional',
+            'excluido' => 'Excluído em',
+        ];
+    }
+
+    public function behaviors() {
+        return [
+            [
+                'class' => \cornernote\softdelete\SoftDeleteBehavior::className(),
+                'attribute' => 'excluido',
+                'value' => new \yii\db\Expression('NOW()'),
+            ],
         ];
     }
 
     public static function getProfissionalPeloNome($nome)
     {
-        $profissional = Profissional::find()->where(['nome' => $nome])->one();
+        $profissional = Profissional::find()->where(['nome' => $nome])
+            ->andWhere(['is', '[[excluido]]', null])
+            ->one();
         // if (!$profissional) {
         //     $profissional = new Profissional();
         //     $profissional->nome = $nome;

@@ -40,6 +40,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'categoriaId',
                 'value'=>'categoria.nome',
             ],
+            
+            'excluido:datetime',
 
             [
               'class' => 'yii\grid\ActionColumn',

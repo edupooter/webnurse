@@ -31,4 +31,13 @@ class ProcedimentoQuery extends \yii\db\ActiveQuery
     {
         return parent::one($db);
     }
+
+    public function behaviors() {
+        return [
+            [
+                'class' => \cornernote\softdelete\SoftDeleteQueryBehavior::className(),
+                'attribute' => 'excluido',
+            ],
+        ];
+    }
 }

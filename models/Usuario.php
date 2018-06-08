@@ -64,6 +64,17 @@ class Usuario extends ActiveRecord implements IdentityInterface
             'password' => 'Senha do usuário',
             'authKey' => 'Chave de autenticação',
             'hospital' => 'Hospital',
+            'excluido' => 'Excluído em',
+        ];
+    }
+
+    public function behaviors() {
+        return [
+            [
+                'class' => \cornernote\softdelete\SoftDeleteBehavior::className(),
+                'attribute' => 'excluido',
+                'value' => new \yii\db\Expression('NOW()'),
+            ],
         ];
     }
 

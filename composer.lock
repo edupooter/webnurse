@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1753b80234d5d5a6e1b3b123cffd3f8d",
+    "content-hash": "3f923284e1bc378d10cbf7deb9dca4f8",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -373,6 +373,51 @@
                 "yii2"
             ],
             "time": "2015-06-20T08:36:12+00:00"
+        },
+        {
+            "name": "cornernote/yii2-softdelete",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cornernote/yii2-softdelete.git",
+                "reference": "5d81696d52ca0727369b56e7e871a43d9a42eff7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cornernote/yii2-softdelete/zipball/5d81696d52ca0727369b56e7e871a43d9a42eff7",
+                "reference": "5d81696d52ca0727369b56e7e871a43d9a42eff7",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "require-dev": {
+                "phpunit/dbunit": "~1.0",
+                "phpunit/phpunit": "~4.0",
+                "scrutinizer/ocular": "~1.1"
+            },
+            "type": "yii2-behavior",
+            "autoload": {
+                "psr-4": {
+                    "cornernote\\softdelete\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Brett O'Donnell",
+                    "email": "cornernote@gmail.com"
+                }
+            ],
+            "description": "Soft delete behavior for Yii2.",
+            "keywords": [
+                "soft delete",
+                "yii2"
+            ],
+            "time": "2017-09-13T23:12:15+00:00"
         },
         {
             "name": "csanquer/pdo-service-provider",
@@ -3991,58 +4036,6 @@
             "time": "2018-03-21T18:36:53+00:00"
         },
         {
-            "name": "yiisoft/yii2-authclient",
-            "version": "2.1.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/yiisoft/yii2-authclient.git",
-                "reference": "ff826241c231d8f768f4cb58577d6956fdbc5fab"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-authclient/zipball/ff826241c231d8f768f4cb58577d6956fdbc5fab",
-                "reference": "ff826241c231d8f768f4cb58577d6956fdbc5fab",
-                "shasum": ""
-            },
-            "require": {
-                "yiisoft/yii2-httpclient": "~2.0.5"
-            },
-            "suggest": {
-                "spomky-labs/jose": "required for JWS,JWT or JWK related flows like OpenIDConnect"
-            },
-            "type": "yii2-extension",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "yii\\authclient\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Paul Klimov",
-                    "email": "klimov.paul@gmail.com"
-                }
-            ],
-            "description": "External authentication via OAuth and OpenID for the Yii framework",
-            "keywords": [
-                "OpenID Connect",
-                "OpenId",
-                "api",
-                "auth",
-                "oauth",
-                "yii2"
-            ],
-            "time": "2018-02-07T21:12:40+00:00"
-        },
-        {
             "name": "yiisoft/yii2-bootstrap",
             "version": "2.0.8",
             "source": {
@@ -4155,53 +4148,6 @@
                 "yii2"
             ],
             "time": "2018-03-21T16:15:55+00:00"
-        },
-        {
-            "name": "yiisoft/yii2-httpclient",
-            "version": "2.0.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/yiisoft/yii2-httpclient.git",
-                "reference": "95fc8a943e8abb86e3d0f4eace6f6d1f4ba4f028"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-httpclient/zipball/95fc8a943e8abb86e3d0f4eace6f6d1f4ba4f028",
-                "reference": "95fc8a943e8abb86e3d0f4eace6f6d1f4ba4f028",
-                "shasum": ""
-            },
-            "require": {
-                "yiisoft/yii2": "~2.0.13"
-            },
-            "type": "yii2-extension",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "yii\\httpclient\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Paul Klimov",
-                    "email": "klimov.paul@gmail.com"
-                }
-            ],
-            "description": "HTTP client extension for the Yii framework",
-            "keywords": [
-                "curl",
-                "http",
-                "httpclient",
-                "yii2"
-            ],
-            "time": "2018-02-13T15:11:30+00:00"
         },
         {
             "name": "yiisoft/yii2-swiftmailer",
@@ -4522,10 +4468,10 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "kartik-v/yii2-widget-datepicker": 20,
         "mootensai/yii2-enhanced-gii": 20,
         "kartik-v/yii2-nav-x": 20,
         "ramosisw/yii2-material-dashboard": 20,
-        "kartik-v/yii2-widget-datepicker": 20,
         "csanquer/pdo-service-provider": 20
     },
     "prefer-stable": false,

@@ -25,6 +25,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Restaurar', ['undelete', 'id' => $model->id],
+            ['class' => 'btn btn-sucess']) ?>
     </p>
 
     <?= DetailView::widget([
@@ -39,7 +41,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     // 'data'=>ArrayHelper::map(Categoria::find()->orderBy('nome')->select(['nome','id'])->all(), 'id', 'nome'),
                     'data'=>ArrayHelper::map($model->categorias, 'id', 'nome'),
                 ]
-            ],
+            ],            
+            'excluido:datetime',
           ]
     ]) ?>
 

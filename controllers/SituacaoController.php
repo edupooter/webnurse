@@ -125,6 +125,16 @@ class SituacaoController extends Controller
         return $this->redirect(['index']);
     }
 
+    public function actionUndelete($id)
+    {
+        $model = $this->findModel($id);
+
+        if($model->excluido !== null)
+            $this->findModel($id)->unDelete();
+
+        return $this->redirect(['index']);
+    }
+
     /**
      * Finds the Situacao model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
