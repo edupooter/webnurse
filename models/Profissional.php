@@ -72,7 +72,6 @@ class Profissional extends \yii\db\ActiveRecord
     public static function getProfissionalPeloNome($nome)
     {
         $profissional = Profissional::find()->where(['nome' => $nome])
-            ->andWhere(['is', '[[excluido]]', null])
             ->one();
         // if (!$profissional) {
         //     $profissional = new Profissional();

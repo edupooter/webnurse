@@ -76,7 +76,6 @@ class Equipamento extends \yii\db\ActiveRecord
     {
         $equipamento = Equipamento::find()
             ->where(['nome' => $nome])
-            ->andWhere(['is', '[[excluido]]', null])
             ->one();
         // if (!$equipamento) {
         //     $equipamento = new Equipamento();

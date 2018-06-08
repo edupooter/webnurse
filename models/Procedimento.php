@@ -439,7 +439,12 @@ class Procedimento extends \yii\db\ActiveRecord
         $profissionais = [];
         $equipamentos = [];
 
-        foreach ($this->profissionais_ids as $nome) {
+        function secure_iterable($var)
+        {
+            return is_iterable($var) ? $var : array();
+        }
+
+        foreach (secure_iterable($this->profissionais_ids) as $nome) {
             $profissional = Profissional::getProfissionalPeloNome($nome);
             if ($profissional)
             {
@@ -447,7 +452,7 @@ class Procedimento extends \yii\db\ActiveRecord
             }
         }
 
-        foreach ($this->equipamentos_ids as $nome) {
+        foreach (secure_iterable($this->equipamentos_ids) as $nome) {
             $equipamento = Equipamento::getEquipamentoPeloNome($nome);
             if ($equipamento)
             {

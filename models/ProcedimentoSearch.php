@@ -41,7 +41,7 @@ class ProcedimentoSearch extends Procedimento
      */
     public function search($params)
     {
-        $query = Procedimento::find();
+        $query = Procedimento::find()->where(['is', '[[procedimento.excluido]]', null]);
 
         // add conditions that should always apply here
 
@@ -94,7 +94,8 @@ class ProcedimentoSearch extends Procedimento
               ->andFilterWhere(['>=', '[[inicio]]', $this->inicio])
               ->andFilterWhere(['<=', '[[fim]]', $this->fim])
               ->andFilterWhere(['<=', '[[fimestimado]]', $this->fimestimado])
-              ->andFilterWhere(['like', '[[contaminado]]', $this->contaminado]);
+              ->andFilterWhere(['like', '[[contaminado]]', $this->contaminado])
+              ->andFilterWhere(['is', '[[excluido]]', null]);
 
         return $dataProvider;
     }
