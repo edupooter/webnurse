@@ -74,19 +74,19 @@ class Dashboard extends ProcedimentoSearch
 
     public function repetidos()
     {
-        // $hoje1 = date('Y-m-d 00:00:00');
-        // $hoje2 = date('Y-m-d 23:59:59');
-        //
-        // $resultado = new ProcedimentoSearch;
-        //
-        // $resultado->where(['>', '[[inicio]]', $hoje1])
-        //     ->andWhere(['<', '[[inicio]]', $hoje2])
-        //     ->andWhere(['is', '[[excluido]]', null])
-        //     ->all();
-        // // $total = $query->sum('cost');
-        // // $revenue = $query->sum('revenue');
-        //
-        // return $resultado;
+        $hoje1 = date('Y-m-d 00:00:00');
+        $hoje2 = date('Y-m-d 23:59:59');
+
+        $resultado = new ProcedimentoSearch;
+
+        $resultado->where(['>', '[[inicio]]', $hoje1])
+            ->andWhere(['<', '[[inicio]]', $hoje2])
+            ->andWhere(['is', '[[excluido]]', null])
+            ->all();
+        // $total = $query->sum('cost');
+        // $revenue = $query->sum('revenue');
+
+        return $resultado;
     }
 
     public function salas()
