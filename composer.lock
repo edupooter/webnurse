@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3f923284e1bc378d10cbf7deb9dca4f8",
+    "content-hash": "78992dc172989d24ad9c5d5e0415b976",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -4280,6 +4280,50 @@
             "time": "2017-08-15T16:48:10+00:00"
         },
         {
+            "name": "heroku/heroku-buildpack-php",
+            "version": "v136",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/heroku/heroku-buildpack-php.git",
+                "reference": "2840e48240769316777d6548409aa75fef16de09"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/heroku/heroku-buildpack-php/zipball/2840e48240769316777d6548409aa75fef16de09",
+                "reference": "2840e48240769316777d6548409aa75fef16de09",
+                "shasum": ""
+            },
+            "bin": [
+                "bin/heroku-hhvm-apache2",
+                "bin/heroku-hhvm-nginx",
+                "bin/heroku-php-apache2",
+                "bin/heroku-php-nginx"
+            ],
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "David Zuelke",
+                    "email": "dz@heroku.com"
+                }
+            ],
+            "description": "Toolkit for starting a PHP application locally, with or without foreman, using the same config for PHP/HHVM and Apache2/Nginx as on Heroku",
+            "homepage": "https://github.com/heroku/heroku-buildpack-php",
+            "keywords": [
+                "apache",
+                "apache2",
+                "foreman",
+                "heroku",
+                "hhvm",
+                "nginx",
+                "php"
+            ],
+            "time": "2018-05-24T20:47:48+00:00"
+        },
+        {
             "name": "phpspec/php-diff",
             "version": "v1.1.0",
             "source": {
@@ -4478,6 +4522,8 @@
     "prefer-lowest": false,
     "platform": {
         "php": ">=5.4.0",
+        "ext-mysqli": "^7.1",
+        "ext-gettext": "*",
         "ext-gd": "*"
     },
     "platform-dev": []
