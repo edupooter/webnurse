@@ -40,3 +40,6 @@ Comandos GIT.txt
 # senhas
 /config/db.php
 
+# debug
+/web/index.php
+
