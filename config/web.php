@@ -63,8 +63,8 @@ $config = [
         'HMD' => require(__DIR__ . '/hmd.php'),
 
         'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
+            'enablePrettyUrl' => false,
+            'showScriptName' => true, //
             'rules' => [
             ],
         ],
