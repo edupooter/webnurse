@@ -60,6 +60,8 @@ class LoginForm extends Model
 
             if (!$user || !$user->validatePassword($this->password)) {
                 $this->addError($attribute, 'Usuário e/ou senha inválidos.');
+            } elseif ($user->excluido !== null) {
+                $this->addError($attribute, 'Esta conta de usuário foi suspensa.');
             }
         }
     }

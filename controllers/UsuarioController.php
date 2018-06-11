@@ -157,7 +157,7 @@ class UsuarioController extends Controller
 
         return $this->redirect(['index']);
     }
-    
+
     /**
      * Finds the Usuario model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -168,7 +168,7 @@ class UsuarioController extends Controller
     protected function findModel($id)
     {
         if (($model = Usuario::findOne($id)) !== null) {
-            return $model;
+            return $model;            
         }
 
         throw new NotFoundHttpException('A página procurada não existe.');

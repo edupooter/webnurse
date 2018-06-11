@@ -17,8 +17,7 @@ use kartik\date\DatePicker;
 
     <?= $form->field($model, 'patrimonio')->textInput() ?>
 
-    <?= $form->field($model, 'operacional')->dropDownList([ 'Não' => 'Não', 'Sim' => 'Sim', ],
-        ['prompt' => 'Selecione...']) ?>
+    <?= $form->field($model, 'operacional')->dropDownList([ 'Sim' => 'Sim', 'Não' => 'Não',]) ?>
 
     <?= $form->field($model, 'manutencao')->widget(DatePicker::classname(), [
             'name' => 'date_manutencao',
@@ -34,7 +33,9 @@ use kartik\date\DatePicker;
     ]); ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Incluir' : 'Alterar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Incluir' : 'Alterar', [
+            'class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary'
+            ]) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -3,15 +3,8 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
-use app\models\Profissional;
-use app\models\Equipamento;
 use kartik\datetime\DateTimePicker;
 use kartik\select2\Select2;
-// use app\models\ProcedimentoLt;
-// use app\models\ProcedimentoProfissional;
-// use app\models\Especialidade;
-// use app\models\Sala;
-// use app\models\Situacao;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Procedimento */
@@ -33,8 +26,7 @@ use kartik\select2\Select2;
         ) ?>
 
     <?= $form->field($model, 'situacaoId')
-        ->dropDownList(ArrayHelper::map($model->situacoes, 'id', 'nome'),
-        ['prompt'=>'Selecione...']
+        ->dropDownList(ArrayHelper::map($model->situacoes, 'id', 'nome')
         ) ?>
 
     <?= $form->field($model, 'especialidadeId')
@@ -144,8 +136,7 @@ use kartik\select2\Select2;
       	]
     ]); ?>
 
-    <?= $form->field($model, 'contaminado')->dropDownList([ 'Não' => 'Não', 'Sim' => 'Sim', ],
-        ['prompt' => 'Selecione...']) ?>
+    <?= $form->field($model, 'contaminado')->dropDownList([ 'Não' => 'Não', 'Sim' => 'Sim', ]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Incluir' : 'Alterar',

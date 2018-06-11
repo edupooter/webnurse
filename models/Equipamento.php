@@ -36,7 +36,7 @@ class Equipamento extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nome'], 'required'],
+            [['nome', 'operacional'], 'required'],
             [['nome'], 'string', 'max' => 40],
             [['nome'], 'trim'],
             [['patrimonio'], 'string', 'max' => 20],
@@ -77,11 +77,7 @@ class Equipamento extends \yii\db\ActiveRecord
         $equipamento = Equipamento::find()
             ->where(['nome' => $nome])
             ->one();
-        // if (!$equipamento) {
-        //     $equipamento = new Equipamento();
-        //     $equipamento->nome = $nome;
-        //     $equipamento->save(false);
-        // }
+
         return $equipamento;
     }
 

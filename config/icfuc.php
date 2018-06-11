@@ -9,6 +9,4 @@ return [
     'password' => '',
     'charset' => 'utf8',
 
-
-
 ];

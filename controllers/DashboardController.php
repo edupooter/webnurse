@@ -9,6 +9,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\data\ArrayDataProvider;
+use yii\helpers\ArrayHelper;
 
 class DashboardController extends \yii\web\Controller
 {
@@ -20,7 +21,7 @@ class DashboardController extends \yii\web\Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index', 'view'],
+                'only' => ['index'],
                 'rules' => [
                     [
                         'allow' => true,
@@ -42,24 +43,24 @@ class DashboardController extends \yii\web\Controller
         ];
     }
 
-    public function actionView()
+    public function actionIndex()
     {
         $marcados = Dashboard::marcados();
         $atrasados = Dashboard::atrasados();
         $andamento = Dashboard::andamento();
         $finalizados = Dashboard::finalizados();
-        // $repetidos = Dashboard::repetidos();
-        // $salas = Dashboard::salas();
-        // $participantes = Dashboard::participantes();
+        $salas = Dashboard::salas();
+        $participantes = Dashboard::participantes();
+        $repetidos = Dashboard::repetidos();
 
-        return $this->render('view', [
+        return $this->render('index', [
             'marcados' => $marcados,
             'atrasados' => $atrasados,
             'andamento' => $andamento,
             'finalizados' => $finalizados,
-            // 'repetidos' => $repetidos,
-            // 'salas' => $salas,
-            // 'participantes' => $participantes,
+            'salas' => $salas,
+            'participantes' => $participantes,
+            'repetidos' => $repetidos,
         ]);
     }
 

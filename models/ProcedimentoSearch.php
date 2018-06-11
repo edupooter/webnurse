@@ -43,8 +43,6 @@ class ProcedimentoSearch extends Procedimento
     {
         $query = Procedimento::find()->where(['is', '[[procedimento.excluido]]', null]);
 
-        // add conditions that should always apply here
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             // define o limite de itens para a paginação

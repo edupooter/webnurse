@@ -58,7 +58,6 @@ class ProcedimentoController extends Controller
     public function actionIndex()
     {
         $searchModel = new ProcedimentoSearch();
-
         // define filtro padrão de início e fim para hoje
         //$searchModel->inicio = date('Y-m-d H:i', \yii::$app->formatter->asTimestamp(('today')));
         //$searchModel->fim = date('Y-m-d H:i', \yii::$app->formatter->asTimestamp(('tomorrow')));
@@ -110,11 +109,12 @@ class ProcedimentoController extends Controller
 
     public function actionCreate()
     {
-        $model = new Procedimento;
+        $model = new Procedimento();
+
         if ($model->load(Yii::$app->request->post()) && $model->save())
         {
             Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Procedimento atualizado.'));
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->id ]);
         } elseif (!\Yii::$app->request->isPost)
         {
             $model->load(Yii::$app->request->get());
@@ -123,6 +123,7 @@ class ProcedimentoController extends Controller
         }
         return $this->render('create', ['model' => $model]);
     }
+
 
     /**
      * Updates an existing Procedimento model.
@@ -179,7 +180,9 @@ class ProcedimentoController extends Controller
         $model = $this->findModel($id);
 
         if($model->excluido !== null)
+        {
             $this->findModel($id)->unDelete();
+        }
 
         return $this->redirect(['index']);
     }

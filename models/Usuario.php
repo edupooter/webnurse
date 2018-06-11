@@ -98,16 +98,6 @@ class Usuario extends ActiveRecord implements IdentityInterface
   		return self::findOne(['username'=>$username]);
   	}
 
-  	// public function getAuthKey()
-    // {
-  	// 	return $this->authKey;
-  	// }
-    //
-  	// public function validateAuthKey($authKey)
-    // {
-  	// 	return $this->authKey === $authKey;
-  	// }
-
     public function getAuthKey()
     {
         return static::findOne('authKey');
@@ -117,10 +107,6 @@ class Usuario extends ActiveRecord implements IdentityInterface
     {
         return static::findOne(['authKey' => $authKey]);
     }
-
-  	// public function validatePassword($password){
-
-  	// }
 
     public function validatePassword($password)
     {

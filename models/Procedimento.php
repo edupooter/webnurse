@@ -4,11 +4,15 @@ namespace app\models;
 
 use Yii;
 use DateTime;
+use DateInterval;
 use yii\helpers\ArrayHelper;
 use app\models\ProcedimentoSearch;
 use app\models\Categoria;
 use cornernote\linkall\LinkAllBehavior;
-//use app\components\validators\DateValidator;
+use yii\data\SqlDataProvider;
+use yii\data\ActiveDataProvider;
+use yii\data\ArrayDataProvider;
+use yii\db\Query;
 
 /**
  * This is the model class for table "procedimento".
@@ -19,7 +23,7 @@ use cornernote\linkall\LinkAllBehavior;
  * @property string $situacaoId Situação da cirurgia
  * @property string $especialidadeId Especialidade Médica do procedimento
  * @property string $salaId Local do procedimento
- * @property string $responsavelId Médico Responsável pelo procedimento
+ * @property string $responsavelId Profissional responsável pelo procedimento
  * @property string $inicio Data e hora de início da cirurgia
  * @property string $fim Data e hora de fim efetivo da cirurgia
  * @property string $fimestimado Data e hora de fim estimado da cirurgia
@@ -52,6 +56,7 @@ class Procedimento extends \yii\db\ActiveRecord
 
     public $profissionais_ids;
     public $equipamentos_ids;
+    public $kit;
 
     /**
      * {@inheritdoc}
@@ -59,24 +64,19 @@ class Procedimento extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nomeId', 'especialidadeId', 'salaId', 'responsavelId', 'profissionais_ids', 'equipamentos_ids', 'situacaoId'], 'required'],
+            [['nomeId', 'especialidadeId', 'salaId', 'responsavelId', 'situacaoId', 'profissionais_ids', 'equipamentos_ids'], 'required'],
+            //[['inicio', 'fimestimado', 'profissionais_ids', 'equipamentos_ids'], 'required'],
             [['nomeId', 'situacaoId', 'especialidadeId', 'salaId', 'responsavelId'], 'integer'],
             [['contaminado'], 'string'],
-
             //[['inicio', 'fim', 'fimestimado'], 'datetime', 'format' => 'php:Y-m-d H:i:s'],
             [['inicio', 'fim', 'fimestimado', 'profissionais_ids', 'contaminado'], 'safe'],
-
             [['salaId', 'inicio'], 'unique', 'targetAttribute' => ['salaId', 'inicio'],
                   'message' => 'Já existe outro procedimento marcado para esta sala neste horário.'],
 
             [['fim'], 'validaDatas', 'skipOnEmpty' => true],
-
             [['situacaoId'], 'definefim'],
-            //[['fim'], 'definesituacao'],
-
             [['fimestimado'], 'validaDatasEstimado', 'skipOnEmpty' => true],
-
-            //[['salaId'], 'validaConflitoSalaHorario'],
+            //[['procedimentoEquipamento'], 'preencheEquipamentos'],
 
             [['situacaoId', 'contaminado'], 'default'],
             [['nomeId'], 'exist', 'skipOnError' => true, 'targetClass' => ProcedimentoLt::className(), 'targetAttribute' => ['nomeId' => 'id']],
@@ -109,6 +109,18 @@ class Procedimento extends \yii\db\ActiveRecord
         ];
     }
 
+    public function behaviors()
+    {
+        return [
+            LinkAllBehavior::className(),
+            [
+                'class' => \cornernote\softdelete\SoftDeleteBehavior::className(),
+                'attribute' => 'excluido',
+                'value' => new \yii\db\Expression('NOW()'),
+            ],
+        ];
+    }
+
     public function validaDatas()
     {
         if(strtotime($this->fim) < strtotime($this->inicio))
@@ -120,64 +132,37 @@ class Procedimento extends \yii\db\ActiveRecord
 
     public function validaDatasEstimado()
     {
+        $agora = Yii::$app->formatter->asDateTime('now', 'php:Y-m-d H:i:s');
         if(strtotime($this->fimestimado) < strtotime($this->inicio))
         {
-            //$this->addError('inicio','O campo início deve ser anterior ao fim estimado.');
+            $this->addError('fimestimado','O fim estimado deve ser posterior ao início do procedimento.');
+        } elseif (strtotime($this->fimestimado) < $agora) {
             $this->addError('fimestimado','O fim estimado deve ser posterior ao início do procedimento.');
         }
     }
-
-    // public function definesituacao()
-    // {
-        // if(!empty($this->fim))
-        // {
-        //     $this->situacaoId = 9;
-        // }
-    // }
 
     public function definefim()
     {
         $agora = Yii::$app->formatter->asDateTime('now', 'php:Y-m-d H:i:s');
 
-        if(!empty($this->fim))
-        {
-            $this->situacaoId = 9;
-        }
-        else
-        {
-            // Se a situação for "Finalizado" e o fim estiver em branco
-            if(($this->situacaoId == 9) && (empty($this->fim)))
-            {
+        switch ($this->situacaoId) {
+            case (!empty($this->fim)):
+                $this->situacaoId = 9;
+                break;
+            case ($this->situacaoId == 9) && (empty($this->fim)):
                 $this->fim = $agora;
-            }
+                break;
+            case ($this->situacaoId == 7):
+                $this->excluido = $agora;
+                break;
+            default:
+                // echo "outra situacao ";
         }
-        // else
-        // {
-        //     if(($this->situacaoId !== 9) && (!empty($this->fim)))
-        //     {
-        //         $this->fim = NULL;
-        //     } else {$this->situacaoId = 9;}
-        // }
     }
 
     public function validaConflitoSalaHorario()
     {
-        $esteid = null;
-        $conflito = null;
-        $cirurgiaconflito = null;
-        $outroproced = null;
-        $outroprocednomeId = null;
-        $outroprocedinicio = null;
-        $outroprocedfim = null;
-        $outroprocedfimest = null;
-        $nomep = null;
-        $outronome = null;
-        $nomeproc = null;
-        $ini = null;
-        $fim = null;
-        $fimestimado = null;
         $esteid = $this->id;
-
 
         // Consulta outros procedimentos na mesma sala e horário
         $conflito = Procedimento::find()
@@ -193,7 +178,7 @@ class Procedimento extends \yii\db\ActiveRecord
                 '[[p2.inicio]]',
     		    '[[p2.fim]]',
                 '[[p2.fimestimado]]',
-                ])
+            ])
             ->from('{{procedimento}} AS p1')
             ->join('INNER JOIN', '{{procedimento}} AS p2')
             ->where(['[[p1.id]]' => $esteid])
@@ -212,7 +197,7 @@ class Procedimento extends \yii\db\ActiveRecord
                 BETWEEN [[p2.inicio]] AND [[p2.fim]]
               	  OR [[p1.fim]]
                 BETWEEN [[p2.inicio]] AND [[p2.fimestimado]]
-                '])
+            '])
             ->andWhere(['is', '[[procedimento.excluido]]', null])
             ->one();
 
@@ -263,18 +248,65 @@ class Procedimento extends \yii\db\ActiveRecord
         }
     }
 
-    // public function getSubProcedimentos()
+    public function duracaoEstimada($params)
+    {
+        $nomeId = $params;
+
+        $query = (new Query())
+            ->select('avg(TIMESTAMPDIFF(MINUTE, [[inicio]], [[fim]]) DIV 60)*60 AS tempom')
+            ->from('{{procedimento}}')
+            ->where(['is not', '[[fim]]', null])
+            ->andWhere(['is', '[[excluido]]', null])
+            ->andWhere(['=', '[[nomeId]]', $nomeId])
+            ->scalar();
+
+        return $query;
+    }
+
+    // public function kitEstimado($params)
     // {
-    //     return $this->hasMany(Procedimento::className(), ['id' => 'id'])->from(['p2' =>'procedimento']);
+    //     $query = (new Query())
+    //         ->select(['[[equipamento.nome]]'])
+    //         ->from('{{procedimento}}')
+    //         ->join('INNER JOIN', '{{profissional}}',
+    //             '[[profissional.id]] = [[procedimento.responsavelId]]')
+    //         ->join('INNER JOIN', '{{procedimento_equipamento}}',
+    //             '[[procedimento_equipamento.procedimentoId]] = [[procedimento.id]]')
+    //         ->join('INNER JOIN', '{{equipamento}}',
+    //             '[[procedimento_equipamento.equipamentoId]] = [[equipamento.id]]')
+    //         ->where(['is not', '[[procedimento.fim]]', null])
+    //         ->andWhere(['is', '[[procedimento.excluido]]', null])
+    //         ->andWhere(['=', '[[procedimento.nomeId]]', $this->nomeId])
+    //         ->andWhere(['=', '[[procedimento.responsavelId]]', $this->responsavelId])
+    //         ->groupBy(['[[equipamento.id]]'])
+    //         ->all();
+    //
+    //     return $query;
     // }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getResponsavel()
-    {
-        return $this->hasOne(Profissional::className(), ['id' => 'responsavelId']);
-    }
+    // public function preencheEquipamentos()
+    // {
+    //     // Preenche o Kit de Equipamentos com os equipamentos mais utilizados por procedimento e responsasável
+    //     if ($this->procedimentoEquipamento == null)
+    //     {
+    //         $equipamentos = [];
+    //
+    //         $this->equipamentos_ids = Procedimento::kitEstimado($this->nomeId, $this->responsavelId);
+    //
+    //         function secure_iterable2($var)
+    //         {
+    //             return is_iterable($var) ? $var : array();
+    //         }
+    //         foreach (secure_iterable2($this->equipamentos_ids) as $nome)
+    //         {
+    //             $equipamento = Equipamento::getEquipamentoPeloNome($nome);
+    //             if ($equipamento)
+    //             {
+    //                 $equipamentos[] = $equipamento;
+    //             }
+    //         }
+    //     }
+    // }
 
     // Para popular o dropDownList do form
     public function getResponsaveis()
@@ -295,18 +327,17 @@ class Procedimento extends \yii\db\ActiveRecord
             ->where(['=', '[[categoria.responsavel]]', 'Sim'])
             ->andWhere(['is', '[[profissional.excluido]]', null])
             ->andWhere(['is', '[[categoria.excluido]]', null])
+            ->orderBy('nome')
             ->all();
 
         return $query;
-
-        // echo $command->sql;
-        // exit;
     }
 
     public function getEquipe()
     {
         return Profissional::find()
             ->where(['is', '[[excluido]]', null])
+            ->orderBy('nome')
             ->all();
     }
 
@@ -321,7 +352,7 @@ class Procedimento extends \yii\db\ActiveRecord
     // Para popular o dropDownList do form
     public function getProcedimentosLt()
     {
-        return ProcedimentoLt::find()->where(['is', '[[excluido]]', null])->all();
+        return ProcedimentoLt::find()->where(['is', '[[excluido]]', null])->orderBy('nome')->all();
     }
 
     public function getSituacoes()
@@ -331,24 +362,20 @@ class Procedimento extends \yii\db\ActiveRecord
 
     public function getEspecialidades()
     {
-        return Especialidade::find()->where(['is', '[[excluido]]', null])->all();
+        return Especialidade::find()->where(['is', '[[excluido]]', null])->orderBy('nome')->all();
     }
 
     public function getSalas()
     {
-        return Sala::find()->where(['is', '[[excluido]]', null])->all();
+        return Sala::find()->where(['is', '[[excluido]]', null])->orderBy('nome')->all();
     }
 
-    public function behaviors()
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getResponsavel()
     {
-        return [
-            LinkAllBehavior::className(),
-            [
-                'class' => \cornernote\softdelete\SoftDeleteBehavior::className(),
-                'attribute' => 'excluido',
-                'value' => new \yii\db\Expression('NOW()'),
-            ],
-        ];
+        return $this->hasOne(Profissional::className(), ['id' => 'responsavelId']);
     }
 
     /**
@@ -434,8 +461,47 @@ class Procedimento extends \yii\db\ActiveRecord
         return new ProcedimentoQuery(get_called_class());
     }
 
+    // function converterHorasMins($tempom, $formato = '%02d:%02d') {
+    //     if ($tempom < 1) { return; }
+    //     $horas = floor($tempom / 60);
+    //     $minutos = ($tempom % 60);
+    //     return sprintf($formato, $horas, $minutos);
+    // }
+
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert))
+        {
+            // Preenche o campo Fim Estimado somando a duração média ao início
+            $agora = Yii::$app->formatter->asDateTime('now', 'php:Y-m-d H:i:s');
+            if ($this->inicio == null)
+            {
+                $this->inicio = $agora;
+            }
+            if ($this->fimestimado == null)
+            {
+                $duracao = Procedimento::duracaoEstimada($this->nomeId);
+                if ($duracao == null)
+                {
+                    $duracao = 60;
+                }
+                $minutos = round($duracao);
+                // $duracaohm = $this->converterHorasMins($duracao, '%02d:%02d');
+                $datetime = new DateTime($this->inicio);
+                // echo $datetime->format('Y-m-d H:i:s');
+                $datetime->modify('+'.$minutos.' minute');
+                $this->fimestimado = $datetime->format('Y-m-d H:i:s');
+                // echo(' - '.$minutos.' | '.$this->inicio.' | '.$this->fimestimado.' | '.$datetime->format('Y-m-d H:i:s'));die;
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function afterSave($insert, $changedAttributes)
     {
+        // Mantém as tabelas de junção
         $profissionais = [];
         $equipamentos = [];
 
@@ -443,16 +509,16 @@ class Procedimento extends \yii\db\ActiveRecord
         {
             return is_iterable($var) ? $var : array();
         }
-
-        foreach (secure_iterable($this->profissionais_ids) as $nome) {
+        foreach (secure_iterable($this->profissionais_ids) as $nome)
+        {
             $profissional = Profissional::getProfissionalPeloNome($nome);
             if ($profissional)
             {
                 $profissionais[] = $profissional;
             }
         }
-
-        foreach (secure_iterable($this->equipamentos_ids) as $nome) {
+        foreach (secure_iterable($this->equipamentos_ids) as $nome)
+        {
             $equipamento = Equipamento::getEquipamentoPeloNome($nome);
             if ($equipamento)
             {
@@ -462,7 +528,6 @@ class Procedimento extends \yii\db\ActiveRecord
 
         $this->linkAll('profissionais', $profissionais);
         $this->linkAll('equipamentos', $equipamentos);
-
         parent::afterSave($insert, $changedAttributes);
     }
 
@@ -477,13 +542,5 @@ class Procedimento extends \yii\db\ActiveRecord
         return $this->hasMany(Equipamento::className(), ['id' => 'equipamentoId'])
             ->viaTable('{{procedimento_equipamento}}', ['procedimentoId' => 'id']);
     }
-
-    // Exemplo de junção
-    // public function getTags()
-    // {
-    //     return $this->hasMany(Tag::className(), ['id' => 'tag_id'])
-    //         //->via('postToTag');
-    //         ->viaTable('post_to_tag', ['post_id' => 'id']);
-    // }
 
 }

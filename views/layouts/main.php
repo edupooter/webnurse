@@ -50,7 +50,7 @@ if (class_exists('ramosisw\CImaterial\web\MaterialAsset')) {
     // we do not need to display Article/index, About and Contact pages to editor+ roles
     if (!Yii::$app->user->isGuest)
     {
-        $menuItems[] = ['label' => Yii::t('app', 'Painel'), 'url' => ['/dashboard/view']];
+        $menuItems[] = ['label' => Yii::t('app', 'Painel'), 'url' => ['/dashboard/index']];
         $menuItems[] = ['label' => Yii::t('app', 'Procedimentos'), 'url' => ['/procedimento/index']];
         $menuItems[] = ['label' => 'Cadastro', 'items' => [
             ['label' => Yii::t('app', 'Profissionais'), 'url' => ['/profissional/index']],

@@ -23,13 +23,16 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'hospital')->radioList([
         'HCPA'=>'HCPA',
         'HDP'=>'HDP',
+        'HDVS'=>'HDVS',
         'ICFUC'=>'ICFUC',
         'HMD'=>'HMD'
       ]);
     ?>
 
 <div class="form-group">
-    <?= Html::submitButton($model->isNewRecord ? 'Incluir' : 'Alterar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+    <?= Html::submitButton($model->isNewRecord ? 'Incluir' : 'Alterar', [
+        'class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary'
+        ]) ?>
 </div>
 
     <?php ActiveForm::end(); ?>
