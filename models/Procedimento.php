@@ -250,9 +250,8 @@ class Procedimento extends \yii\db\ActiveRecord
             ->where(['is not', '[[fim]]', null])
             ->andWhere(['is', '[[excluido]]', null])
             ->andWhere(['=', '[[nomeId]]', $this->nomeId])
-            ->andWhere(['=', '[[especialidadeId]]', $this->especialidadeId])
             ->andWhere(['=', '[[responsavelId]]', $this->responsavelId])
-            ->limit(30)
+            ->andWhere(['=', '[[especialidadeId]]', $this->especialidadeId])
             ->scalar();
 
         return $query;
@@ -274,6 +273,7 @@ class Procedimento extends \yii\db\ActiveRecord
             ->andWhere(['=', '[[procedimento.nomeId]]', $this->nomeId])
             ->andWhere(['=', '[[procedimento.responsavelId]]', $this->responsavelId])
             ->andWhere(['=', '[[procedimento.especialidadeId]]', $this->especialidadeId])
+            ->andWhere(['=', '[[equipamento.operacional]]', 'Sim'])
             ->groupBy(['[[equipamento.id]]'])
             ->all();
 
@@ -540,6 +540,6 @@ class Procedimento extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Equipamento::className(), ['id' => 'equipamentoId'])
             ->viaTable('{{procedimento_equipamento}}', ['procedimentoId' => 'id']);
-    }
+    }    
 
 }

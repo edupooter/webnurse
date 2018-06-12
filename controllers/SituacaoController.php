@@ -122,9 +122,18 @@ class SituacaoController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        // $this->findModel($id)->delete();
+        //
+        // return $this->redirect(['index']);
 
-        return $this->redirect(['index']);
+        $model = $this->findModel($id);
+
+        if($model->delete())
+        {
+            return $this->redirect(['index']);
+        } else {
+            throw new \yii\web\ForbiddenHttpException('Esta situação não pode ser excluída, pois é reservada pelo sistema.');
+        }
     }
 
     public function actionUndelete($id)
@@ -132,7 +141,9 @@ class SituacaoController extends Controller
         $model = $this->findModel($id);
 
         if($model->excluido !== null)
+        {
             $this->findModel($id)->unDelete();
+        }
 
         return $this->redirect(['index']);
     }

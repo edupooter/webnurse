@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'id',
             'nome',
-            'excluido:datetime',
+            // 'excluido:datetime',
 
             [
               'class' => 'yii\grid\ActionColumn',
