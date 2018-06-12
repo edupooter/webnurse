@@ -56,7 +56,6 @@ class Procedimento extends \yii\db\ActiveRecord
 
     public $profissionais_ids;
     public $equipamentos_ids;
-    public $kit;
 
     /**
      * {@inheritdoc}
@@ -64,19 +63,19 @@ class Procedimento extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nomeId', 'especialidadeId', 'salaId', 'responsavelId', 'situacaoId', 'profissionais_ids', 'equipamentos_ids'], 'required'],
+            [['nomeId', 'especialidadeId', 'salaId', 'responsavelId', 'situacaoId'], 'required'],
             //[['inicio', 'fimestimado', 'profissionais_ids', 'equipamentos_ids'], 'required'],
             [['nomeId', 'situacaoId', 'especialidadeId', 'salaId', 'responsavelId'], 'integer'],
             [['contaminado'], 'string'],
             //[['inicio', 'fim', 'fimestimado'], 'datetime', 'format' => 'php:Y-m-d H:i:s'],
-            [['inicio', 'fim', 'fimestimado', 'profissionais_ids', 'contaminado'], 'safe'],
+            [['inicio', 'fim', 'fimestimado', 'profissionais_ids', 'equipamentos_ids', 'contaminado'], 'safe'],
             [['salaId', 'inicio'], 'unique', 'targetAttribute' => ['salaId', 'inicio'],
                   'message' => 'Já existe outro procedimento marcado para esta sala neste horário.'],
 
             [['fim'], 'validaDatas', 'skipOnEmpty' => true],
             [['situacaoId'], 'definefim'],
             [['fimestimado'], 'validaDatasEstimado', 'skipOnEmpty' => true],
-            //[['procedimentoEquipamento'], 'preencheEquipamentos'],
+            // [['inicio', 'fimestimado', 'fim'], 'validaConflitoSalaHorario'],
 
             [['situacaoId', 'contaminado'], 'default'],
             [['nomeId'], 'exist', 'skipOnError' => true, 'targetClass' => ProcedimentoLt::className(), 'targetAttribute' => ['nomeId' => 'id']],
@@ -162,95 +161,88 @@ class Procedimento extends \yii\db\ActiveRecord
 
     public function validaConflitoSalaHorario()
     {
-        $esteid = $this->id;
-
         // Consulta outros procedimentos na mesma sala e horário
         $conflito = Procedimento::find()
             ->select([
-    		    '[[p1.id]]',
-    		    '[[p1.salaId]]',
-                '[[p1.inicio]]',
-    		    '[[p1.fim]]',
-                '[[p1.fimestimado]]',
-                '[[p2.id]]',
-                '[[p2.nomeId]]',
-    		    '[[p2.salaId]]',
-                '[[p2.inicio]]',
-    		    '[[p2.fim]]',
-                '[[p2.fimestimado]]',
+    		    'p1.id',
+    		    'p1.salaId',
+                'p1.inicio',
+    		    'p1.fim',
+                'p1.fimestimado',
+                'p2.id as id2',
+                'p2.nomeId as nomeId2',
+    		    'p2.salaId as salaId2',
+                'p2.inicio as inicio2',
+    		    'p2.fim as fim2',
+                'p2.fimestimado fimestimado2',
             ])
-            ->from('{{procedimento}} AS p1')
-            ->join('INNER JOIN', '{{procedimento}} AS p2')
-            ->where(['[[p1.id]]' => $esteid])
-            ->andWhere(['=', '[[p1.salaId]]', '[[p2.salaId]]'])
-            ->andWhere(['<', '[[p1.id]]', '[[p2.id]]])
-                AND (
-                  [[p1.inicio]]
-                BETWEEN [[p2.inicio]] AND [[p2.fim]]
-                  OR [[p1.fim]]
-                BETWEEN [[p2.inicio]] AND [[p2.fim]]
-              	  OR [[p1.inicio]]
-                BETWEEN [[p2.inicio]] AND [[p2.fimestimado]]
-              	  OR [[p1.fimestimado]]
-                BETWEEN [[p2.inicio]] AND [[p2.fimestimado]]
-              	  OR [[p1.fimestimado]]
-                BETWEEN [[p2.inicio]] AND [[p2.fim]]
-              	  OR [[p1.fim]]
-                BETWEEN [[p2.inicio]] AND [[p2.fimestimado]]
-            '])
-            ->andWhere(['is', '[[procedimento.excluido]]', null])
+            ->from('procedimento p1')
+            ->join('INNER JOIN', 'procedimento p2')
+            ->where(['p1.id' => $this->id])
+            ->andWhere(['=', 'p1.salaId', '[[p2.salaId]]'])
+            ->andWhere('p1.id < p2.id')
+            ->andWhere('
+                p1.inicio
+                BETWEEN p2.inicio AND p2.fim)
+                  OR (p1.fim
+                BETWEEN p2.inicio AND p2.fim)
+              	  OR (p1.inicio
+                BETWEEN p2.inicio AND p2.fimestimado)
+              	  OR (p1.fimestimado
+                BETWEEN p2.inicio AND p2.fimestimado)
+              	  OR (p1.fimestimado
+                BETWEEN p2.inicio AND p2.fim)
+              	  OR (p1.fim
+                BETWEEN p2.inicio AND p2.fimestimado
+            ')
+            ->andWhere(['is', 'p2.excluido', null])
             ->one();
 
         $cirurgiaconflito = ArrayHelper::toArray($conflito, [
             'app\models\Procedimento' => [
-                'id' => 'id',
-                'nomeId' => 'nomeId',
-                // the key name in array result => property name
-                'inicio' => 'inicio',
-                'fim' => 'fim',
-                'fimestimado' => 'fimestimado',
-                // the key name in array result => anonymous function
-                //'length' => function ($conflito) {
-                  // return strlen($conflito->content);
-                // },
-                ],
-            ]);
+                'id2' => 'id',
+                'nomeId2' => 'nomeId',
+                'inicio2' => 'inicio',
+                'fim2' => 'fim',
+                'fimestimado2' => 'fimestimado',
+            ],
+        ]);
 
-        $outroproced = ArrayHelper::getValue($cirurgiaconflito, 'id');
-        $outroprocednomeId = ArrayHelper::getValue($cirurgiaconflito, 'nomeId');
-        $outroprocedinicio = ArrayHelper::getValue($cirurgiaconflito, 'inicio');
-        $outroprocedfim = ArrayHelper::getValue($cirurgiaconflito, 'fim');
-        $outroprocedfimest = ArrayHelper::getValue($cirurgiaconflito, 'fimestimado');
+        // echo('</br> --------- </br>');
+        // var_dump($cirurgiaconflito);
 
-        if($outroproced > 0)
+        $outroproced = ArrayHelper::getValue($cirurgiaconflito, 'id2');
+        $outroprocednomeId = ArrayHelper::getValue($cirurgiaconflito, 'nomeId2');
+        $outroprocedinicio = ArrayHelper::getValue($cirurgiaconflito, 'inicio2');
+        $outroprocedfim = ArrayHelper::getValue($cirurgiaconflito, 'fim2');
+        $outroprocedfimest = ArrayHelper::getValue($cirurgiaconflito, 'fimestimado2');
+        // echo($outroproced.'</br>'.$outroprocednomeId.'</br>'.$outroprocedinicio.'</br>'.$outroprocedfim.'</br>'.$outroprocedfimest.'</br>');
+        // die;
+
+        if($outroproced !== null)
         {
             $nomep = ProcedimentoLt::find()
-                ->select('[[nome]]')
-                ->where(['[[id]]' => $outroprocednomeId])
-                ->one();
+                ->select('nome')
+                ->where(['id' => $outroprocednomeId])
+                ->scalar();
 
-            $outronome = ArrayHelper::toArray($nomep, [
-                'app\models\ProcedimentoLt' => ['nome'],
-            ]);
-
-            $nomeproc = ArrayHelper::getValue($outronome, 'nome');
             $ini = date("d-m-Y H:i", strtotime($outroprocedinicio));
             $fim = date("d-m-Y H:i", strtotime($outroprocedfim));
             $fimestimado = date("d-m-Y H:i", strtotime($outroprocedfimest));
 
-            $this->addError('salaId','Já está marcado nesta sala: '.$nomeproc);
-            $this->addError('inicio','O outro procedimento inicia em: '.$ini);
-            $this->addError('fimestimado','O outro procedimento está previsto para acabar em: '.$fimestimado);
+            $this->addError('salaId','Já está marcado nesta sala: '.$nomep);
+            $this->addError('inicio','Outro procedimento inicia em: '.$ini);
+            $this->addError('fimestimado','Outro procedimento está previsto para acabar em: '.$fimestimado);
             if(!empty($fim))
             {
-                $this->addError('fimestimado','O outro procedimento encerrou em: '.$fim);
+                $this->addError('fimestimado','Outro procedimento encerrou em: '.$fim);
             }
         }
     }
 
     public function duracaoEstimada($params)
     {
-        $nomeId = $params;
+        //$nomeId = $params;
 
         $query = (new Query())
             ->select('avg(TIMESTAMPDIFF(MINUTE, [[inicio]], [[fim]]) DIV 60)*60 AS tempom')
@@ -258,54 +250,38 @@ class Procedimento extends \yii\db\ActiveRecord
             ->where(['is not', '[[fim]]', null])
             ->andWhere(['is', '[[excluido]]', null])
             ->andWhere(['=', '[[nomeId]]', $nomeId])
+            ->andWhere(['=', '[[especialidadeId]]', $especialidadeId])
+            ->andWhere(['=', '[[responsavelId]]', $responsavelId])
             ->scalar();
 
         return $query;
     }
 
-    // public function kitEstimado($params)
-    // {
-    //     $query = (new Query())
-    //         ->select(['[[equipamento.nome]]'])
-    //         ->from('{{procedimento}}')
-    //         ->join('INNER JOIN', '{{profissional}}',
-    //             '[[profissional.id]] = [[procedimento.responsavelId]]')
-    //         ->join('INNER JOIN', '{{procedimento_equipamento}}',
-    //             '[[procedimento_equipamento.procedimentoId]] = [[procedimento.id]]')
-    //         ->join('INNER JOIN', '{{equipamento}}',
-    //             '[[procedimento_equipamento.equipamentoId]] = [[equipamento.id]]')
-    //         ->where(['is not', '[[procedimento.fim]]', null])
-    //         ->andWhere(['is', '[[procedimento.excluido]]', null])
-    //         ->andWhere(['=', '[[procedimento.nomeId]]', $this->nomeId])
-    //         ->andWhere(['=', '[[procedimento.responsavelId]]', $this->responsavelId])
-    //         ->groupBy(['[[equipamento.id]]'])
-    //         ->all();
-    //
-    //     return $query;
-    // }
+    public function kitEstimado($params)
+    {
+        $query = (new Query())
+            ->select(['[[equipamento.nome]]'])
+            ->from('{{procedimento}}')
+            ->join('INNER JOIN', '{{profissional}}',
+                '[[profissional.id]] = [[procedimento.responsavelId]]')
+            ->join('INNER JOIN', '{{procedimento_equipamento}}',
+                '[[procedimento_equipamento.procedimentoId]] = [[procedimento.id]]')
+            ->join('INNER JOIN', '{{equipamento}}',
+                '[[procedimento_equipamento.equipamentoId]] = [[equipamento.id]]')
+            ->where(['is not', '[[procedimento.fim]]', null])
+            ->andWhere(['is', '[[procedimento.excluido]]', null])
+            ->andWhere(['=', '[[procedimento.nomeId]]', $this->nomeId])
+            ->andWhere(['=', '[[procedimento.responsavelId]]', $this->responsavelId])
+            ->andWhere(['=', '[[procedimento.especialidadeId]]', $this->especialidadeId])
+            ->groupBy(['[[equipamento.id]]'])
+            ->all();
+
+        return $query;
+    }
 
     // public function preencheEquipamentos()
     // {
-    //     // Preenche o Kit de Equipamentos com os equipamentos mais utilizados por procedimento e responsasável
-    //     if ($this->procedimentoEquipamento == null)
-    //     {
-    //         $equipamentos = [];
     //
-    //         $this->equipamentos_ids = Procedimento::kitEstimado($this->nomeId, $this->responsavelId);
-    //
-    //         function secure_iterable2($var)
-    //         {
-    //             return is_iterable($var) ? $var : array();
-    //         }
-    //         foreach (secure_iterable2($this->equipamentos_ids) as $nome)
-    //         {
-    //             $equipamento = Equipamento::getEquipamentoPeloNome($nome);
-    //             if ($equipamento)
-    //             {
-    //                 $equipamentos[] = $equipamento;
-    //             }
-    //         }
-    //     }
     // }
 
     // Para popular o dropDownList do form
@@ -493,6 +469,28 @@ class Procedimento extends \yii\db\ActiveRecord
                 $this->fimestimado = $datetime->format('Y-m-d H:i:s');
                 // echo(' - '.$minutos.' | '.$this->inicio.' | '.$this->fimestimado.' | '.$datetime->format('Y-m-d H:i:s'));die;
             }
+
+            // Preenche o Kit de Equipamentos com os equipamentos mais utilizados por procedimento e responsasável
+            if (empty($this->equipamentos_ids))
+            {
+                $equipamentos = [];
+
+                $this->equipamentos_ids = Procedimento::kitEstimado($this->nomeId, $this->responsavelId);
+
+                function secure_iterable2($var)
+                {
+                    return is_iterable($var) ? $var : array();
+                }
+                foreach (secure_iterable2($this->equipamentos_ids) as $nome)
+                {
+                    $equipamento = Equipamento::getEquipamentoPeloNome($nome);
+                    if ($equipamento)
+                    {
+                        $equipamentos[] = $equipamento;
+                    }
+                }
+            }
+
             return true;
         } else {
             return false;
