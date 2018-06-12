@@ -240,7 +240,7 @@ class Procedimento extends \yii\db\ActiveRecord
         }
     }
 
-    public function duracaoEstimada($params)
+    public function duracaoEstimada()
     {
         //$nomeId = $params;
 
@@ -249,9 +249,10 @@ class Procedimento extends \yii\db\ActiveRecord
             ->from('{{procedimento}}')
             ->where(['is not', '[[fim]]', null])
             ->andWhere(['is', '[[excluido]]', null])
-            ->andWhere(['=', '[[nomeId]]', $nomeId])
-            ->andWhere(['=', '[[especialidadeId]]', $especialidadeId])
-            ->andWhere(['=', '[[responsavelId]]', $responsavelId])
+            ->andWhere(['=', '[[nomeId]]', $this->nomeId])
+            ->andWhere(['=', '[[especialidadeId]]', $this->especialidadeId])
+            ->andWhere(['=', '[[responsavelId]]', $this->responsavelId])
+            ->limit(30)
             ->scalar();
 
         return $query;
@@ -456,7 +457,7 @@ class Procedimento extends \yii\db\ActiveRecord
             }
             if ($this->fimestimado == null)
             {
-                $duracao = Procedimento::duracaoEstimada($this->nomeId);
+                $duracao = Procedimento::duracaoEstimada();
                 if ($duracao == null)
                 {
                     $duracao = 60;

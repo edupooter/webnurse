@@ -82,7 +82,8 @@ class SituacaoController extends Controller
     {
         $model = new Situacao();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save())
+        {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -102,7 +103,8 @@ class SituacaoController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save())
+        {
             return $this->redirect(['index', 'id' => $model->id]);
         }
 
@@ -144,7 +146,8 @@ class SituacaoController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Situacao::findOne($id)) !== null) {
+        if (($model = Situacao::findOne($id)) !== null)
+        {
             return $model;
         }
 

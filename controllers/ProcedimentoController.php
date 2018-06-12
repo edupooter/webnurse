@@ -98,7 +98,8 @@ class ProcedimentoController extends Controller
     // public function actionCreate()
     // {
     //     $model = new Procedimento();
-    //     if ($model->load(Yii::$app->request->post()) && $model->save()) {
+    //     if ($model->load(Yii::$app->request->post()) && $model->save())
+    //     {
     //         return $this->redirect(['view', 'id' => $model->id]);
     //     } else {
     //         return $this->render('create', [
@@ -135,7 +136,8 @@ class ProcedimentoController extends Controller
     // public function actionUpdate($id)
     // {
     //     $model = $this->findModel($id);    //
-    //     if ($model->load(Yii::$app->request->post()) && $model->save()) {
+    //     if ($model->load(Yii::$app->request->post()) && $model->save())
+    //     {
     //         // return $this->redirect(['view', 'id' => $model->id]);
     //         return $this->redirect(['index', 'id' => $model->id]);
     //     } else {
@@ -151,7 +153,7 @@ class ProcedimentoController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save())
         {
             Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Procedimento atualizado.'));
-            return $this->redirect(['index', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } elseif (!\Yii::$app->request->isPost)
         {
             $model->load(Yii::$app->request->get());

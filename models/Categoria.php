@@ -55,7 +55,8 @@ class Categoria extends \yii\db\ActiveRecord
         ];
     }
 
-    public function behaviors() {
+    public function behaviors()
+    {
         return [
             [
                 'class' => \cornernote\softdelete\SoftDeleteBehavior::className(),

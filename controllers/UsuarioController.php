@@ -82,7 +82,8 @@ class UsuarioController extends Controller
     {
         $model = new Usuario();
 
-        // if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        // if ($model->load(Yii::$app->request->post()) && $model->save())
+        // {
         //     return $this->redirect(['view', 'id' => $model->id]);
         // }
 
@@ -117,7 +118,8 @@ class UsuarioController extends Controller
         // // Exemplo de recuperação do password original
         $password_hash = $model->password; // backup the value first;
         $model->password = "";
-        // if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        // if ($model->load(Yii::$app->request->post()) && $model->save())
+        // {
         //     $model->password = $password_hash; // retreive the value back
         //     $model->save();
         // }
@@ -167,8 +169,9 @@ class UsuarioController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Usuario::findOne($id)) !== null) {
-            return $model;            
+        if (($model = Usuario::findOne($id)) !== null)
+        {
+            return $model;
         }
 
         throw new NotFoundHttpException('A página procurada não existe.');

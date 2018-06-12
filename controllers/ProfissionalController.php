@@ -82,7 +82,8 @@ class ProfissionalController extends Controller
     {
         $model = new Profissional();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save())
+        {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -102,7 +103,8 @@ class ProfissionalController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save())
+        {
             return $this->redirect(['index', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -135,7 +137,7 @@ class ProfissionalController extends Controller
         return $this->redirect(['index']);
     }
 
-    
+
     /**
      * Finds the Profissional model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -145,7 +147,8 @@ class ProfissionalController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Profissional::findOne($id)) !== null) {
+        if (($model = Profissional::findOne($id)) !== null)
+        {
             return $model;
         } else {
             throw new NotFoundHttpException('A página procurada não existe.');
