@@ -75,7 +75,7 @@ class Procedimento extends \yii\db\ActiveRecord
             [['fim'], 'validaDatas', 'skipOnEmpty' => true],
             [['situacaoId'], 'definefim'],
             [['fimestimado'], 'validaDatasEstimado', 'skipOnEmpty' => true],
-            // [['inicio', 'fimestimado', 'fim'], 'validaConflitoSalaHorario'],
+            //[['inicio'], 'validaConflitoSalaHorario'],
 
             [['situacaoId', 'contaminado'], 'default'],
             [['nomeId'], 'exist', 'skipOnError' => true, 'targetClass' => ProcedimentoLt::className(), 'targetAttribute' => ['nomeId' => 'id']],
@@ -179,8 +179,8 @@ class Procedimento extends \yii\db\ActiveRecord
             ->from('procedimento p1')
             ->join('INNER JOIN', 'procedimento p2')
             ->where(['p1.id' => $this->id])
-            ->andWhere(['=', 'p1.salaId', '[[p2.salaId]]'])
-            ->andWhere('p1.id < p2.id')
+            ->andWhere(['=', 'p1.salaId', 'p2.salaId'])
+            ->andWhere(['<>', 'p1.id', 'p2.id'])
             ->andWhere('
                 p1.inicio
                 BETWEEN p2.inicio AND p2.fim)
@@ -230,12 +230,13 @@ class Procedimento extends \yii\db\ActiveRecord
             $fim = date("d-m-Y H:i", strtotime($outroprocedfim));
             $fimestimado = date("d-m-Y H:i", strtotime($outroprocedfimest));
 
-            $this->addError('salaId','Já está marcado nesta sala: '.$nomep);
+            $this->addError('salaId','Já está marcado nesta sala. Sugestão: escolha outra sala e tente novamente.');
             $this->addError('inicio','Outro procedimento inicia em: '.$ini);
             $this->addError('fimestimado','Outro procedimento está previsto para acabar em: '.$fimestimado);
+
             if(!empty($fim))
             {
-                $this->addError('fimestimado','Outro procedimento encerrou em: '.$fim);
+                $this->addError('fim','Outro procedimento encerrou em: '.$fim);
             }
         }
     }
@@ -540,6 +541,6 @@ class Procedimento extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Equipamento::className(), ['id' => 'equipamentoId'])
             ->viaTable('{{procedimento_equipamento}}', ['procedimentoId' => 'id']);
-    }    
+    }
 
 }

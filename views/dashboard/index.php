@@ -9,6 +9,8 @@ use yii\grid\GridView;
 /* @var $provider yii\data\ArrayDataProvider */
 
 $hoje = Yii::$app->formatter->asDateTime('now', 'php: d/m/Y');
+$fimdodia = Yii::$app->formatter->asDateTime('now', 'php: Y-m-d 23%3A59');
+$fimestimado = '?ProcedimentoSearch[fimestimado]='.$fimdodia;
 
 $this->title = 'Painel - Dashboard';
 $this->params['breadcrumbs'][] = ['label' => 'Procedimentos', 'url' => ['index']];
@@ -39,7 +41,9 @@ $this->params['breadcrumbs'][] = $this->title;
 						<div class="card-footer">
 							<div class="stats">
 								<i class="material-icons">today</i>
-                                    <label>Marcações de <?= $hoje ?></label>
+                  <label>
+                    <a href=<?= $url=Url::to(['procedimento/index']) ?>>Marcações de <?= $hoje ?></a>
+                  </label>
 							</div>
 						</div>
 					</div>
@@ -59,7 +63,9 @@ $this->params['breadcrumbs'][] = $this->title;
 						<div class="card-footer">
 							<div class="stats">
 								<i class="material-icons">local_hospital</i>
-                                    <label>Situação: Em cirurgia</label>
+                  <label>
+                    <a href=<?= $url=Url::to(['procedimento/index?ProcedimentoSearch[situacaoId]=cirurgia']) ?>>Situação: Em cirurgia</a>
+                  </label>
 							</div>
 						</div>
 					</div>
@@ -79,7 +85,9 @@ $this->params['breadcrumbs'][] = $this->title;
 						<div class="card-footer">
 							<div class="stats">
 								<i class="material-icons">warning</i>
-                                    <label>Verifique os procedimentos</label>
+                  <label>
+                    <a href=<?= $url=Url::to(['procedimento/index?ProcedimentoSearch[situacaoId]=agendado']) ?>>Verifique os procedimentos</a>
+                  </label>
 							</div>
 						</div>
 					</div>
@@ -99,7 +107,9 @@ $this->params['breadcrumbs'][] = $this->title;
 						<div class="card-footer">
 							<div class="stats">
 								<i class="material-icons">check</i>
-                                    <label>Situação: Finalizado</label>
+                  <label>
+                    <a href=<?= $url=Url::to(['procedimento/index?ProcedimentoSearch[situacaoId]=finalizado']) ?>>Situação: Finalizado</a>
+                  </label>
 							</div>
 						</div>
 					</div>

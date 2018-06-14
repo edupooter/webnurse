@@ -31,8 +31,50 @@ class Dashboard extends Model
             ->where(['>=', '[[inicio]]', $hoje1])
             ->andWhere(['<=', '[[inicio]]', $hoje2])
             ->andWhere(['is', '[[excluido]]', null])
+            //->andWhere(['is', '[[fim]]', null])
             ->count();
 
+        return $query;
+    }
+
+    // public function marcadosLink()
+    // {
+    //     $hoje1 = date('Y-m-d 00:00:00');
+    //     $hoje2 = date('Y-m-d 23:59:59');
+    //
+    //     $dataProvider = new SqlDataProvider([
+    //         'sql' => "
+    //             SELECT
+    //               [[procedimento.id]] as id,
+    //             FROM
+    //               {{procedimento}}
+    //             WHERE
+    //               ([[procedimento.inicio]] BETWEEN :hoje1 AND :hoje2) and
+    //               ([[procedimento.excluido]] is null)
+    //             ORDER BY
+    //               id asc",
+    //         'params' => [
+    //           ':hoje1' => $hoje1,
+    //           ':hoje2' => $hoje2,
+    //         ],
+    //     ]);
+    //     $marcadosLink = $dataProvider;
+    //     return $marcadosLink;
+    // }
+
+    public function andamento()
+    {
+        $hoje1 = date('Y-m-d 00:00:00');
+        $hoje2 = date('Y-m-d 23:59:59');
+
+        $query = (new Query())
+            ->from('{{procedimento}}')
+            ->where(['>=', '[[inicio]]', $hoje1])
+            ->andWhere(['<=', '[[inicio]]', $hoje2])
+            ->andWhere(['in', '[[situacaoId]]', [5]])
+            ->andWhere(['is', '[[excluido]]', null])
+            ->andWhere(['is', '[[fim]]', null])
+            ->count();
         return $query;
     }
 
@@ -47,16 +89,7 @@ class Dashboard extends Model
             ->andWhere(['<=', '[[inicio]]', $agora])
             ->andWhere(['not in', '[[situacaoId]]', [5, 7, 9]])
             ->andWhere(['is', '[[excluido]]', null])
-            ->count();
-        return $query;
-    }
-
-    public function andamento()
-    {
-        $query = (new Query())
-            ->from('{{procedimento}}')
-            ->where(['in', '[[situacaoId]]', [5]])
-            ->andWhere(['is', '[[excluido]]', null])
+            ->andWhere(['is', '[[fim]]', null])
             ->count();
         return $query;
     }
@@ -65,10 +98,6 @@ class Dashboard extends Model
     {
         $hoje1 = date('Y-m-d 00:00:00');
         $hoje2 = date('Y-m-d 23:59:59');
-
-        // $count = Yii::$app->db->createCommand('
-        //     SELECT COUNT(*) FROM post WHERE status=:status
-        //     ', [':status' => 1])->queryScalar();
 
         $query = (new Query())
             ->from('{{procedimento}}')
@@ -134,7 +163,7 @@ class Dashboard extends Model
                 INNER JOIN {{categoria}} ON [[profissional.categoriaId]] = [[categoria.id]]
                 WHERE
                     ([[procedimento.inicio]] BETWEEN :hoje1 AND :hoje2) AND
-                    [[procedimento.excluido]] IS null
+                    ([[procedimento.excluido]] IS null)
                 GROUP BY
                     [[categoria.id]]
                 HAVING
@@ -166,7 +195,7 @@ class Dashboard extends Model
                     [[procedimento_lt.id]]
                 WHERE
                     ([[procedimento.inicio]] BETWEEN :hoje1 AND :hoje2) AND
-                    [[procedimento.excluido]] IS null
+                    ([[procedimento.excluido]] IS null)
                 GROUP BY
                     [[procedimento_lt.nome]]
                 HAVING

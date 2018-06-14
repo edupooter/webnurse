@@ -10,6 +10,7 @@ use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\data\ArrayDataProvider;
 use yii\helpers\ArrayHelper;
+use app\models\ProcedimentoSearch;
 
 class DashboardController extends \yii\web\Controller
 {
@@ -46,6 +47,7 @@ class DashboardController extends \yii\web\Controller
     public function actionIndex()
     {
         $marcados = Dashboard::marcados();
+        // $marcadosLink = Dashboard::marcadosLink();
         $atrasados = Dashboard::atrasados();
         $andamento = Dashboard::andamento();
         $finalizados = Dashboard::finalizados();
@@ -55,6 +57,7 @@ class DashboardController extends \yii\web\Controller
 
         return $this->render('index', [
             'marcados' => $marcados,
+            // 'marcadosLink' => $marcadosLink,
             'atrasados' => $atrasados,
             'andamento' => $andamento,
             'finalizados' => $finalizados,
