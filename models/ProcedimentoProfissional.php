@@ -20,7 +20,7 @@ class ProcedimentoProfissional extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{procedimento_profissional}}';
+        return 'procedimento_profissional';
     }
 
     public static function getDb() {

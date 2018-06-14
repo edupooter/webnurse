@@ -44,18 +44,19 @@ class Procedimento extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+
+    public $profissionais_ids;
+    public $equipamentos_ids;
+
     public static function tableName()
     {
-        return '{{procedimento}}';
+        return 'procedimento';
     }
 
     public static function getDb() {
         //return Yii::$app->get('hcpa');
         return Yii::$app->get(Yii::$app->user->identity->hospital);
     }
-
-    public $profissionais_ids;
-    public $equipamentos_ids;
 
     /**
      * {@inheritdoc}
@@ -327,6 +328,31 @@ class Procedimento extends \yii\db\ActiveRecord
             ->all();
     }
 
+    public function getProcedimentoLtNome()
+    {
+        return $this->ProcedimentoLt->nome;
+    }
+
+    public function getSituacaoNome()
+    {
+        return $this->Situacao->nome;
+    }
+
+    public function getEspecialidadeNome()
+    {
+        return $this->Especialidade->nome;
+    }
+
+    public function getSalaNome()
+    {
+        return $this->Sala->nome;
+    }
+
+    public function getResponsavelNome()
+    {
+        return $this->Profissional->nome;
+    }
+
     // Para popular o dropDownList do form
     public function getProcedimentosLt()
     {
@@ -346,6 +372,18 @@ class Procedimento extends \yii\db\ActiveRecord
     public function getSalas()
     {
         return Sala::find()->where(['is', '[[excluido]]', null])->orderBy('nome')->all();
+    }
+
+    public function getProfissionais()
+    {
+        return $this->hasMany(Profissional::className(), ['id' => 'profissionalId'])
+            ->viaTable('{{procedimento_profissional}}', ['procedimentoId' => 'id']);
+    }
+
+    public function getEquipamentos()
+    {
+        return $this->hasMany(Equipamento::className(), ['id' => 'equipamentoId'])
+            ->viaTable('{{procedimento_equipamento}}', ['procedimentoId' => 'id']);
     }
 
     /**
@@ -402,32 +440,6 @@ class Procedimento extends \yii\db\ActiveRecord
     public function getSituacao()
     {
         return $this->hasOne(Situacao::className(), ['id' => 'situacaoId']);
-    }
-
-
-    public function getProcedimentoLtNome()
-    {
-        return $this->ProcedimentoLt->nome;
-    }
-
-    public function getSituacaoNome()
-    {
-        return $this->Situacao->nome;
-    }
-
-    public function getEspecialidadeNome()
-    {
-        return $this->Especialidade->nome;
-    }
-
-    public function getSalaNome()
-    {
-        return $this->Sala->nome;
-    }
-
-    public function getResponsavelNome()
-    {
-        return $this->Profissional->nome;
     }
 
     /**
@@ -529,18 +541,6 @@ class Procedimento extends \yii\db\ActiveRecord
         $this->linkAll('profissionais', $profissionais);
         $this->linkAll('equipamentos', $equipamentos);
         parent::afterSave($insert, $changedAttributes);
-    }
-
-    public function getProfissionais()
-    {
-        return $this->hasMany(Profissional::className(), ['id' => 'profissionalId'])
-            ->viaTable('{{procedimento_profissional}}', ['procedimentoId' => 'id']);
-    }
-
-    public function getEquipamentos()
-    {
-        return $this->hasMany(Equipamento::className(), ['id' => 'equipamentoId'])
-            ->viaTable('{{procedimento_equipamento}}', ['procedimentoId' => 'id']);
     }
 
 }

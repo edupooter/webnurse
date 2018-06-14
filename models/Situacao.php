@@ -20,7 +20,7 @@ class Situacao extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{situacao}}';
+        return 'situacao';
     }
 
     public static function getDb() {

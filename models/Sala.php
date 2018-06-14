@@ -19,7 +19,7 @@ class Sala extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{sala}}';
+        return 'sala';
     }
 
     public static function getDb() {

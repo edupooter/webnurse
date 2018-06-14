@@ -21,13 +21,30 @@ class Dashboard extends Model
      * {@inheritdoc}
      */
 
+    // private $banco;
+    //
+    // public function __constructor() {
+    //     $banco = Yii::$app->user->identity->hospital;
+    // }
+    //
+    // public function __getBanco()
+    // {
+    //     return $this->$banco;
+    // }
+    //
+    // public function __setBanco($value)
+    // {
+    //     $this->$banco = Yii::$app->user->identity->hospital;
+    // }
+
     public function marcados()
     {
+        $banco = Yii::$app->user->identity->hospital;
         $hoje1 = date('Y-m-d 00:00:00');
         $hoje2 = date('Y-m-d 23:59:59');
 
         $query = (new Query())
-            ->from('{{procedimento}}')
+            ->from('{{'.$banco.'}}.{{procedimento}}')
             ->where(['>=', '[[inicio]]', $hoje1])
             ->andWhere(['<=', '[[inicio]]', $hoje2])
             ->andWhere(['is', '[[excluido]]', null])
@@ -64,14 +81,15 @@ class Dashboard extends Model
 
     public function andamento()
     {
+        $banco = Yii::$app->user->identity->hospital;
         $hoje1 = date('Y-m-d 00:00:00');
         $hoje2 = date('Y-m-d 23:59:59');
 
         $query = (new Query())
-            ->from('{{procedimento}}')
+            ->from('{{'.$banco.'}}.{{procedimento}}')
             ->where(['>=', '[[inicio]]', $hoje1])
             ->andWhere(['<=', '[[inicio]]', $hoje2])
-            ->andWhere(['in', '[[situacaoId]]', [5]])
+            ->andWhere(['=', '[[situacaoId]]', 5])
             ->andWhere(['is', '[[excluido]]', null])
             ->andWhere(['is', '[[fim]]', null])
             ->count();
@@ -80,11 +98,12 @@ class Dashboard extends Model
 
     public function atrasados()
     {
+        $banco = Yii::$app->user->identity->hospital;
         $hoje = Yii::$app->formatter->asDate('now', 'php:Y-m-d');
         $agora = Yii::$app->formatter->asDate('now', 'php:Y-m-d H:i:s');
 
         $query = (new Query())
-            ->from('{{procedimento}}')
+            ->from('{{'.$banco.'}}.{{procedimento}}')
             ->where(['like', '[[inicio]]', $hoje])
             ->andWhere(['<=', '[[inicio]]', $agora])
             ->andWhere(['not in', '[[situacaoId]]', [5, 7, 9]])
@@ -96,11 +115,12 @@ class Dashboard extends Model
 
     public function finalizados()
     {
+        $banco = Yii::$app->user->identity->hospital;
         $hoje1 = date('Y-m-d 00:00:00');
         $hoje2 = date('Y-m-d 23:59:59');
 
         $query = (new Query())
-            ->from('{{procedimento}}')
+            ->from('{{'.$banco.'}}.{{procedimento}}')
             ->where(['>=', '[[inicio]]', $hoje1])
             ->andWhere(['<=', '[[inicio]]', $hoje2])
             ->andWhere(['is not', '[[fim]]', null])
@@ -111,33 +131,34 @@ class Dashboard extends Model
 
     public function salas()
     {
+        $banco = Yii::$app->user->identity->hospital;
         $hoje = date('Y-m-d 00:00:00');
         $agora = Yii::$app->formatter->asDate('now', 'php:Y-m-d H:i:s');
 
         $dataProvider = new SqlDataProvider([
             'sql' => "
                 SELECT
-                  [[sala.nome]] as sala,
-                  [[procedimento_lt.nome]] as tipo,
-                  [[procedimento.inicio]] as inicio,
-                  [[procedimento.fimestimado]] as fimestimado,
-                  [[situacao.nome]] as situacao
+                    [[sala.nome]] as sala,
+                    [[procedimento_lt.nome]] as tipo,
+                    [[procedimento.inicio]] as inicio,
+                    [[procedimento.fimestimado]] as fimestimado,
+                    [[situacao.nome]] as situacao
                 FROM
-                  {{procedimento}}
+                    $banco.{{procedimento}}
                 INNER JOIN {{sala}} ON [[sala.id]] = [[procedimento.salaId]]
                 INNER JOIN {{procedimento_lt}} ON [[procedimento.nomeId]] =
-                  [[procedimento_lt.id]]
+                    [[procedimento_lt.id]]
                 INNER JOIN {{situacao}} ON [[procedimento.situacaoId]] = [[situacao.id]]
                 WHERE
-                  ([[procedimento.inicio]] BETWEEN :hoje AND :agora) and
-                  ([[procedimento.fimestimado]] >=:agora) and
-                  ([[procedimento.fim]] is null) and
-                  ([[procedimento.excluido]] is null)
+                    ([[procedimento.inicio]] BETWEEN :hoje AND :agora) and
+                    ([[procedimento.fimestimado]] >=:agora) and
+                    ([[procedimento.fim]] is null) and
+                    ([[procedimento.excluido]] is null)
                 ORDER BY
-                  sala asc",
+                    sala asc",
             'params' => [
-              ':hoje' => $hoje,
-              ':agora' => $agora,
+                ':hoje' => $hoje,
+                ':agora' => $agora,
             ],
         ]);
         $salas = $dataProvider;
@@ -146,6 +167,7 @@ class Dashboard extends Model
 
     public function participantes()
     {
+        $banco = Yii::$app->user->identity->hospital;
         $hoje1 = date('Y-m-d 00:00:00');
         $hoje2 = date('Y-m-d 23:59:59');
 
@@ -155,7 +177,7 @@ class Dashboard extends Model
                     [[categoria.nome]] as categoria
                     , count([[categoria.id]]) as total
                 FROM
-                    {{procedimento}}
+                    $banco.{{procedimento}}
                 INNER JOIN {{procedimento_profissional}} ON [[procedimento.id]] =
                     [[procedimento_profissional.procedimentoId]]
                 INNER JOIN {{profissional}} ON [[procedimento_profissional.profissionalId]] =
@@ -181,6 +203,7 @@ class Dashboard extends Model
 
     public function repetidos()
     {
+        $banco = Yii::$app->user->identity->hospital;
         $hoje1 = date('Y-m-d 00:00:00');
         $hoje2 = date('Y-m-d 23:59:59');
 
@@ -190,7 +213,7 @@ class Dashboard extends Model
                     [[procedimento_lt.nome]] as tipo
                 ,	count([[procedimento_lt.nome]]) as total
                 FROM
-                    {{procedimento}}
+                    $banco.{{procedimento}}
                 INNER JOIN {{procedimento_lt}} ON [[procedimento.nomeId]] =
                     [[procedimento_lt.id]]
                 WHERE

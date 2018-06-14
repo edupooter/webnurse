@@ -20,7 +20,7 @@ class Categoria extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{categoria}}';
+        return 'categoria';
     }
 
     public static function getDb() {

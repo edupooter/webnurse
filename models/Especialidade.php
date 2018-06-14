@@ -19,7 +19,7 @@ class Especialidade extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{especialidade}}';
+        return 'especialidade';
     }
 
     public static function getDb() {

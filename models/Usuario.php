@@ -24,11 +24,11 @@ class Usuario extends ActiveRecord implements IdentityInterface
      */
     public static function tableName()
     {
-        return '{{usuario}}';
+        return 'usuario';
     }
 
     // public static function getDb() {
-    //     return Yii::$app->get('hcpa');
+    //     // return Yii::$app->get('db');
     //     return Yii::$app->get(Yii::$app->user->identity->hospital);
     // }
 
@@ -49,7 +49,7 @@ class Usuario extends ActiveRecord implements IdentityInterface
             [['authKey'], 'string', 'max' => 50],
             [['authKey'], 'unique'],
 
-            [['hospital'], 'string', 'max' => 10],
+            [['hospital'], 'string', 'max' => 12],
         ];
     }
 
