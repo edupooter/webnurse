@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	<section id="pageContent">
 		<main role="main">
 			<article>
-				<h3>Painel</h3>
+				<h3>Painel - Dashboard</h3>
 				<h5>Serve para auxiliar o Enfermeiro no controle da execução dos
                     procedimentos cadastrados na tela "Procedimentos", com uma
                     visão geral dos procedimentos do dia atual.
