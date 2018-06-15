@@ -47,6 +47,16 @@ class EquipamentoSearch extends Equipamento
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            // define o limite de itens para a paginação
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+            // define a ordem padrão
+            'sort' => [
+                'defaultOrder' => [
+                    'nome' => SORT_ASC,
+                ]
+            ],
         ]);
 
         $this->load($params);
@@ -59,8 +69,8 @@ class EquipamentoSearch extends Equipamento
 
         // grid filtering conditions
         $query->andFilterWhere([
-            '[[id]]' => $this->id,
-            '[[manutencao]]' => $this->manutencao,
+            'id' => $this->id,
+            'manutencao' => $this->manutencao,
         ]);
 
         $query->andFilterWhere(['like', '[[nome]]', $this->nome])

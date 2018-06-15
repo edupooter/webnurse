@@ -47,6 +47,16 @@ class ProcedimentoLtSearch extends ProcedimentoLt
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            // define o limite de itens para a paginação
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+            // define a ordem padrão
+            'sort' => [
+                'defaultOrder' => [
+                    'nome' => SORT_ASC,
+                ]
+            ],
         ]);
 
         $this->load($params);
@@ -59,7 +69,7 @@ class ProcedimentoLtSearch extends ProcedimentoLt
 
         // grid filtering conditions
         $query->andFilterWhere([
-            '[[id]]' => $this->id,
+            'id' => $this->id,
         ]);
 
         $query->andFilterWhere(['like', '[[nome]]', $this->nome]);

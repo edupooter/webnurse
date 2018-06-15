@@ -74,7 +74,7 @@ class ProcedimentoSearch extends Procedimento
 
         // grid filtering conditions
         $query->andFilterWhere([
-            '[[id]]' => $this->id,
+            'id' => $this->id,
             //'nomeId' => $this->nomeId,
             //'especialidadeId' => $this->especialidadeId,
             //'salaId' => $this->salaId,

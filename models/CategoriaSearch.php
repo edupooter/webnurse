@@ -47,6 +47,16 @@ class CategoriaSearch extends Categoria
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            // define o limite de itens para a paginação
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+            // define a ordem padrão
+            'sort' => [
+                'defaultOrder' => [
+                    'nome' => SORT_ASC,
+                ]
+            ],
         ]);
 
         $this->load($params);
