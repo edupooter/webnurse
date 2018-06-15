@@ -8,7 +8,6 @@ use yii\db\Expression;
 use yii\db\Query;
 use yii\data\SqlDataProvider;
 use yii\data\ActiveDataProvider;
-use app\models\ProcedimentoSearch;
 
 /**
  * This is the model class for table "marcadas_hoje".

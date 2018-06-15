@@ -27,46 +27,46 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             [
                 'class' => 'yii\grid\SerialColumn',
-                'header'=>'N.',
+                'header' => 'N.',
             ],
 
             //'id',
             //'nomeId',
             [
-                'label'=>'Procedimento',
-                'attribute'=>'nomeId',
-                'value'=>'nome.nome',
+                'label' => 'Procedimento',
+                'attribute' => 'nomeId',
+                'value' => 'nome.nome',
                 'options' => ['style' => 'min-width:200px;'],
             ],
             //'situacaoId',
             [
-                'label'=>'Situação',
-                'attribute'=>'situacaoId',
-                'value'=>'situacao.nome',
+                'label' => 'Situação',
+                'attribute' => 'situacaoId',
+                'value' => 'situacao.nome',
                 'options' => ['style' => 'width:120px;'],
             ],
             //'salaId',
             [
-                'label'=>'Local',
-                'attribute'=>'salaId',
-                'value'=>'sala.nome',
+                'label' => 'Local',
+                'attribute' => 'salaId',
+                'value' => 'sala.nome',
                 'options' => ['style' => 'min-width:70px;'],
             ],
             //'responsavelId',
             // [
-            //     'attribute'=>'responsavelId',
-            //     'value'=>'responsavel.nome',
+            //     'attribute' => 'responsavelId',
+            //     'value' => 'responsavel.nome',
             // ],
 
             //'especialidadeId',
             // [
-            //     'label'=>'Especialidade',
-            //     'attribute'=>'especialidadeId',
-            //     'value'=>'especialidade.nome',
+            //     'label' => 'Especialidade',
+            //     'attribute' => 'especialidadeId',
+            //     'value' => 'especialidade.nome',
             // ],
             //'inicio:datetime',
             [
-                'label'=>'Início',
+                'label' => 'Início',
                 'attribute' => 'inicio',
                 'format' => ['datetime', 'php:d-m-Y H:i'],
                 'options' => ['style' => 'min-width:125px;'],
@@ -85,7 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             //'fimestimado:datetime',
             [
-                'label'=>'Fim Estimado',
+                'label' => 'Fim Estimado',
                 'attribute' => 'fimestimado',
                 'format' => ['datetime', 'php:d-m-Y H:i'],
                 'options' => ['style' => 'min-width:125px;'],
@@ -104,7 +104,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             //'fim:datetime',
             [
-                'label'=>'Fim',
+                'label' => 'Fim',
                 'attribute' => 'fim',
                 'format' => ['datetime', 'php:d-m-Y H:i'],
                 'options' => ['style' => 'min-width:125px;'],
@@ -122,13 +122,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]),
             ],
             [
-                'label'=>'Contam.',
-                'attribute'=>'contaminado',
-                'value'=>'contaminado',
+                'label' => 'Contam.',
+                'attribute' => 'contaminado',
+                'value' => 'contaminado',
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
-                'header'=>'Ações',
+                'header' => 'Ações',
             ],
         ],
     ]); ?>

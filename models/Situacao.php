@@ -91,14 +91,14 @@ class Situacao extends \yii\db\ActiveRecord
         }
     }
 
-    public function beforeUndelete()
-    {
-        if(($this->id == 5) || ($this->id == 7) || ($this->id == 9))
-        {
-            return false;
-        } else {
-            return true;
-        }
-    }
+    // public function beforeUndelete()
+    // {
+    //     if(($this->id == 5) || ($this->id == 7) || ($this->id == 9))
+    //     {
+    //         return false;
+    //     } else {
+    //         return true;
+    //     }
+    // }
 
 }
