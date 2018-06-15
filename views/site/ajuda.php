@@ -27,10 +27,6 @@ $this->params['breadcrumbs'][] = $this->title;
                      Cirurgia"), para listar as cirurgias em andamento na tela
                      de Procedimentos.
                  </h5>
-                 <h5>Nota: é possível que sejam mostrados procedimentos "Em andamento"
-                     de datas anteriores, pois o sistema considera todos os
-                     procedimentos sem data de fim cadastrada.
-                 </h5>
 			</article>
 			<article>
                 <h3>Procedimentos</h3>
@@ -45,53 +41,53 @@ $this->params['breadcrumbs'][] = $this->title;
                     no ícone <span class="glyphicon glyphicon-remove"></span>, ao lado
                     da caixa de data.
                 </h5>
-                </li>
-                <li>
-				<h5>Se precisar cadastrar um novo procedimento, clique no botão
-                    <span class="btn btn-success">Incluir Procedimento</span>,
-                    localizado no topo da página, abaixo do título.
-                </h5>
-                </li>
-                <li>
-                <h5>Na coluna "Ações", à direita da tabela, são mostrados os ícones
-                     <span class="glyphicon glyphicon-eye-open">"olho"</span>,
-                     <span class="glyphicon glyphicon-pencil">"lápis"</span> e
-                     <span class="glyphicon glyphicon-trash">"lixeira"</span>,
-                    que representam as ações de "exibir", "alterar" e "excluir",
-                    respectivamente.
-                </h5>
-                </li>
-                <li>
-                <h5>Nota: por uma questão técnica, apenas alguns detalhes são
-                    mostrados tela de exibição. Portanto, para consultar todas as
-                    informações cadastradas em um procedimento, é preciso abrir a
-                    tela de alteração daquele procedimento pelo ícone do lápis
-                    <span class="glyphicon glyphicon-pencil"></span>, ou pelo
-                    botão <span class="btn btn-primary">Alterar</span>
-                </h5>
-                </li>
-                <li>
-                <h5>Na tela de alteração, os campos "Equipe de Profissionais" e
-                    "Kit de Equipamentos" podem receber um mais nomes de profissionais
-                    e equipamentos. Basta digitar para selecionar os desejados,
-                    e clicar no "X" para removê-los.
-                </h5>
-                </li>
-                <li>
-                <h5>O campo "Responsável" somente exibe profissionais habilitados
-                    como responsáveis por procedimentos cirúrgicos, no respectivo
-                    cadastro de "Categoria Profissional".
-                </h5>
-                </li>
-                <li>
-                <h5>Com o passar do tempo, o sistema estimará o fim para os
-                    procedimentos, informando uma dica no campo "Fim estimado",
-                    com base na duração média dos procedimentos cadastrados
-                    anteriormente.
-                    Também mostrará os equipamentos mais utilizados para o tipo
-                    de procedimento, especialidade e responsável selecionados.
-                </h5>
-                </li>
+                    </li>
+                    <li>
+        				<h5>Se precisar cadastrar um novo procedimento, clique no botão
+                            <span class="btn btn-success">Incluir Procedimento</span>,
+                            localizado no topo da página, abaixo do título.
+                        </h5>
+                    </li>
+                    <li>
+                        <h5>Na coluna "Ações", à direita da tabela, são mostrados os ícones
+                             <span class="glyphicon glyphicon-eye-open">"olho"</span>,
+                             <span class="glyphicon glyphicon-pencil">"lápis"</span> e
+                             <span class="glyphicon glyphicon-trash">"lixeira"</span>,
+                            que representam as ações de "exibir", "alterar" e "excluir",
+                            respectivamente.
+                        </h5>
+                    </li>
+                    <li>
+                        <h5>Nota: por uma questão técnica, apenas alguns detalhes são
+                            mostrados tela de exibição. Portanto, para consultar todas as
+                            informações cadastradas em um procedimento, é preciso abrir a
+                            tela de alteração daquele procedimento pelo ícone do lápis
+                            <span class="glyphicon glyphicon-pencil"></span>, ou pelo
+                            botão <span class="btn btn-primary">Alterar</span>
+                        </h5>
+                    </li>
+                    <li>
+                        <h5>Na tela de alteração, os campos "Equipe de Profissionais" e
+                            "Kit de Equipamentos" podem receber um mais nomes de profissionais
+                            e equipamentos. Basta digitar para selecionar os desejados,
+                            e clicar no "X" para removê-los.
+                        </h5>
+                    </li>
+                    <li>
+                        <h5>O campo "Responsável" somente exibe profissionais habilitados
+                            como responsáveis por procedimentos cirúrgicos, no respectivo
+                            cadastro de "Categoria Profissional".
+                        </h5>
+                    </li>
+                    <li>
+                        <h5>Com o passar do tempo, o sistema estimará o fim para os
+                            procedimentos, informando uma dica no campo "Fim estimado",
+                            com base na duração média dos procedimentos cadastrados
+                            anteriormente.
+                            Também preencherá os equipamentos mais utilizados para o tipo
+                            de procedimento, especialidade e responsável selecionados.
+                        </h5>
+                    </li>
             </ul>
 			</article>
 			<article>
@@ -120,8 +116,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         </li>
                         <li>Situações (status de cirurgia): orienta a situação do
                             procedimento, conforme sua evolução; é importante manter
-                            cadastradas as situações "Finalizado" e "Em cirurgia",
-                            para efeito de controle no Painel.
+                            cadastradas as situações "Finalizado", "Em cirurgia" e
+                            "Cancelado", para efeito de controle no Painel.
                         </li>
                     </ul>
                 </h5>
