@@ -91,12 +91,14 @@ use kartik\select2\Select2;
   	    'type' => DateTimePicker::TYPE_COMPONENT_PREPEND,
   	    'layout' => '{picker}{input}{remove}',
   	    'readonly' => true,
+        'language' => 'pt',
   	    //'convertFormat' => true,
   	    'pluginOptions' => [
   	         'todayHighlight' => true,
              'todayBtn' => true,
              'autoclose' => true,
-             //'format' => 'd-m-Y H:i:s',
+             'language' => 'pt',
+             //'format' => 'php:d-m-Y H:i:s',
   	         //'startDate' => date('d-m-Y h:i'),
   	         //'hoursDisabled' => '0,1,2,3,4,5,6,19,20,21,22',
              //'daysOfWeekDisabled' => '0,6',
@@ -113,10 +115,13 @@ use kartik\select2\Select2;
         'type' => DateTimePicker::TYPE_COMPONENT_PREPEND,
         'layout' => '{picker}{input}{remove}',
         'readonly' => true,
+        'language' => 'pt',
+        //'convertFormat' => true,
         'pluginOptions' => [
             'todayHighlight' => false,
             'todayBtn' => true,
             'autoclose' => true,
+            //'format' => 'php:d-m-Y H:i:s',
         ]
     ]); ?>
 
@@ -129,10 +134,14 @@ use kartik\select2\Select2;
   	    'type' => DateTimePicker::TYPE_COMPONENT_PREPEND,
         'layout' => '{picker}{input}{remove}',
         'readonly' => true,
+        'language' => 'pt',
+        //'convertFormat' => true,
 	      'pluginOptions' => [
   	        'todayHighlight' => false,
             'todayBtn' => true,
             'autoclose' => true,
+            'language' => 'pt',
+            //'format' => 'php:d-m-Y H:i:s',
       	]
     ]); ?>
 

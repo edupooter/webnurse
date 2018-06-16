@@ -46,6 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute' => 'manutencao',
                     'readonly' => true,
                     'layout' => '{picker}{input}{remove}',
+                    'language' => 'pt',
                     'pluginOptions' => [
                         'todayHighlight' => true,
                     	'autoclose' => true,

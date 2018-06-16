@@ -6,7 +6,7 @@ $config = [
     'id' => 'webnurse',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log',],
-    'language' => 'pt',
+    'language' => 'pt-br',
     'timezone' => 'America/Sao_Paulo',
     'components' => [
         'request' => [
@@ -21,7 +21,7 @@ $config = [
             'thousandSeparator' => '.',
             'currencyCode' => 'R$',
             'defaultTimeZone' => 'America/Sao_Paulo',
-            'locale' => 'pt-br',
+            //'locale' => 'pt',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',

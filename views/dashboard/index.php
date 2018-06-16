@@ -8,7 +8,7 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $provider yii\data\ArrayDataProvider */
 
-$hoje = Yii::$app->formatter->asDateTime('now', 'php: d/m/Y');
+$hoje = Yii::$app->formatter->asDateTime('now', 'php: d-m-Y');
 $fimdodia = Yii::$app->formatter->asDateTime('now', 'php: Y-m-d 23%3A59');
 $fimestimado = '?ProcedimentoSearch[fimestimado]='.$fimdodia;
 

@@ -24,6 +24,7 @@ use kartik\date\DatePicker;
             'type' => DatePicker::TYPE_INLINE,
             'layout' => '{picker}{input}{remove}',
             'readonly' => true,
+            'language' => 'pt',
             'options' => ['placeholder' => 'Data de último envio para manutenção...'],
             'pluginOptions' => [
                 'format' => 'yyyy-mm-dd',
