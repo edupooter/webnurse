@@ -55,9 +55,9 @@ if (class_exists('ramosisw\CImaterial\web\MaterialAsset')) {
         $menuItems[] = ['label' => 'Cadastro', 'items' => [
             ['label' => Yii::t('app', 'Profissionais'), 'url' => ['/profissional/index']],
             ['label' => Yii::t('app', 'Equipamentos Cirúrgicos'), 'url' => ['/equipamento/index']],
+            ['label' => Yii::t('app', 'Tipos de Procedimento'), 'url' => ['/procedimento-lt/index']],
             ['label' => Yii::t('app', 'Especialidades Médicas'), 'url' => ['/especialidade/index']],
             ['label' => Yii::t('app', 'Categorias Profissionais'), 'url' => ['/categoria/index']],
-            ['label' => Yii::t('app', 'Tipos de Procedimento'), 'url' => ['/procedimento-lt/index']],
             ['label' => Yii::t('app', 'Salas Cirúrgicas'), 'url' => ['/sala/index']],
             ['label' => Yii::t('app', 'Situações (status de cirurgias)'), 'url' => ['/situacao/index']]
         ]];

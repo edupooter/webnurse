@@ -54,7 +54,7 @@ class UsuarioSearch extends Usuario
             // define a ordem padrão
             'sort' => [
                 'defaultOrder' => [
-                    'nome' => SORT_ASC,
+                    'username' => SORT_ASC,
                 ]
             ],
         ]);

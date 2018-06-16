@@ -325,6 +325,7 @@ class Procedimento extends \yii\db\ActiveRecord
         return Equipamento::find()
             ->where(['[[operacional]]'=>'Sim'])
             ->andWhere(['is', '[[excluido]]', null])
+            ->orderBy('nome')
             ->all();
     }
 
