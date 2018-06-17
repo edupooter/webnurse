@@ -187,8 +187,6 @@ class Dashboard extends Model
                     ([[procedimento.excluido]] IS null)
                 GROUP BY
                     [[categoria.id]]
-                HAVING
-                    total > 1
                 ORDER BY
                     categoria DESC",
             'params' => [
