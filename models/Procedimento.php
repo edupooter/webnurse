@@ -376,6 +376,14 @@ class Procedimento extends \yii\db\ActiveRecord
         return Sala::find()->where(['is', '[[excluido]]', null])->orderBy('nome')->all();
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getResponsavel()
+    {
+        return $this->hasOne(Profissional::className(), ['id' => 'responsavelId']);
+    }
+
     public function getProfissionais()
     {
         return $this->hasMany(Profissional::className(), ['id' => 'profissionalId'])
@@ -386,14 +394,6 @@ class Procedimento extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Equipamento::className(), ['id' => 'equipamentoId'])
             ->viaTable('{{procedimento_equipamento}}', ['procedimentoId' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getResponsavel()
-    {
-        return $this->hasOne(Profissional::className(), ['id' => 'responsavelId']);
     }
 
     /**

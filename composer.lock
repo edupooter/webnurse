@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "78992dc172989d24ad9c5d5e0415b976",
+    "content-hash": "64c7afc9611aaa7ba3fa483d488781f0",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -201,6 +201,45 @@
                 "library"
             ],
             "time": "2017-03-20T19:02:00+00:00"
+        },
+        {
+            "name": "bower-asset/mermaid",
+            "version": "7.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/knsv/mermaid.git",
+                "reference": "1076d671374898a1e75b778911832da01f57b88f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/knsv/mermaid/zipball/1076d671374898a1e75b778911832da01f57b88f",
+                "reference": "1076d671374898a1e75b778911832da01f57b88f",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "dist/mermaid.slim.js",
+                "bower-asset-ignore": [
+                    "*",
+                    "!dist/",
+                    "!dist/*",
+                    "!LICENSE"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Markdownish syntax for generating flowcharts, sequence diagrams, class diagrams, gantt charts and git graphs.",
+            "keywords": [
+                "class diagram",
+                "diagram",
+                "flowchart",
+                "gantt",
+                "git graph",
+                "markdown",
+                "sequence diagram"
+            ],
+            "time": "2017-06-04T04:13:22+00:00"
         },
         {
             "name": "bower-asset/punycode",
@@ -469,6 +508,43 @@
                 "silex"
             ],
             "time": "2018-01-03T09:49:51+00:00"
+        },
+        {
+            "name": "dmstr/yii2-mermaid-asset",
+            "version": "0.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dmstr/yii2-mermaid-asset.git",
+                "reference": "ee7dee5f9795149d85d497d49eec1da2110cd1f0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dmstr/yii2-mermaid-asset/zipball/ee7dee5f9795149d85d497d49eec1da2110cd1f0",
+                "reference": "ee7dee5f9795149d85d497d49eec1da2110cd1f0",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/mermaid": "^7.0.3",
+                "yiisoft/yii2": "2.0.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "dmstr\\web\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Tobias Munk",
+                    "email": "tobias@diemeisterei.de"
+                }
+            ],
+            "description": "Mermaid asset bundle for Yii 2.0 Framework",
+            "time": "2017-07-10T10:16:54+00:00"
         },
         {
             "name": "doctrine/lexer",
