@@ -161,87 +161,87 @@ class Procedimento extends \yii\db\ActiveRecord
         }
     }
 
-    public function validaConflitoSalaHorario()
-    {
-        // Consulta outros procedimentos na mesma sala e horário
-        $conflito = Procedimento::find()
-            ->select([
-    		    'p1.id',
-    		    'p1.salaId',
-                'p1.inicio',
-    		    'p1.fim',
-                'p1.fimestimado',
-                'p2.id as id2',
-                'p2.nomeId as nomeId2',
-    		    'p2.salaId as salaId2',
-                'p2.inicio as inicio2',
-    		    'p2.fim as fim2',
-                'p2.fimestimado fimestimado2',
-            ])
-            ->from('procedimento p1')
-            ->join('INNER JOIN', 'procedimento p2')
-            ->where(['p1.id' => $this->id])
-            ->andWhere(['=', 'p1.salaId', 'p2.salaId'])
-            ->andWhere(['<>', 'p1.id', 'p2.id'])
-            ->andWhere('
-                p1.inicio
-                BETWEEN p2.inicio AND p2.fim)
-                  OR (p1.fim
-                BETWEEN p2.inicio AND p2.fim)
-              	  OR (p1.inicio
-                BETWEEN p2.inicio AND p2.fimestimado)
-              	  OR (p1.fimestimado
-                BETWEEN p2.inicio AND p2.fimestimado)
-              	  OR (p1.fimestimado
-                BETWEEN p2.inicio AND p2.fim)
-              	  OR (p1.fim
-                BETWEEN p2.inicio AND p2.fimestimado
-            ')
-            ->andWhere(['is', 'p2.excluido', null])
-            ->one();
-
-        $cirurgiaconflito = ArrayHelper::toArray($conflito, [
-            'app\models\Procedimento' => [
-                'id2' => 'id',
-                'nomeId2' => 'nomeId',
-                'inicio2' => 'inicio',
-                'fim2' => 'fim',
-                'fimestimado2' => 'fimestimado',
-            ],
-        ]);
-
-        // echo('</br> --------- </br>');
-        // var_dump($cirurgiaconflito);
-
-        $outroproced = ArrayHelper::getValue($cirurgiaconflito, 'id2');
-        $outroprocednomeId = ArrayHelper::getValue($cirurgiaconflito, 'nomeId2');
-        $outroprocedinicio = ArrayHelper::getValue($cirurgiaconflito, 'inicio2');
-        $outroprocedfim = ArrayHelper::getValue($cirurgiaconflito, 'fim2');
-        $outroprocedfimest = ArrayHelper::getValue($cirurgiaconflito, 'fimestimado2');
-        // echo($outroproced.'</br>'.$outroprocednomeId.'</br>'.$outroprocedinicio.'</br>'.$outroprocedfim.'</br>'.$outroprocedfimest.'</br>');
-        // die;
-
-        if($outroproced !== null)
-        {
-            $nomep = ProcedimentoLt::find()
-                ->select('nome')
-                ->where(['id' => $outroprocednomeId])
-                ->scalar();
-
-            $ini = date("d-m-Y H:i", strtotime($outroprocedinicio));
-            $fim = date("d-m-Y H:i", strtotime($outroprocedfim));
-            $fimestimado = date("d-m-Y H:i", strtotime($outroprocedfimest));
-
-            $this->addError('salaId','Já está marcado nesta sala. Sugestão: escolha outra sala e tente novamente.');
-            $this->addError('inicio','Outro procedimento inicia em: '.$ini);
-            $this->addError('fimestimado','Outro procedimento está previsto para acabar em: '.$fimestimado);
-
-            if(!empty($fim))
-            {
-                $this->addError('fim','Outro procedimento encerrou em: '.$fim);
-            }
-        }
-    }
+    // public function validaConflitoSalaHorario()
+    // {
+    //     // Consulta outros procedimentos na mesma sala e horário
+    //     $conflito = Procedimento::find()
+    //         ->select([
+    // 		    'p1.id',
+    // 		    'p1.salaId',
+    //             'p1.inicio',
+    // 		    'p1.fim',
+    //             'p1.fimestimado',
+    //             'p2.id as id2',
+    //             'p2.nomeId as nomeId2',
+    // 		    'p2.salaId as salaId2',
+    //             'p2.inicio as inicio2',
+    // 		    'p2.fim as fim2',
+    //             'p2.fimestimado fimestimado2',
+    //         ])
+    //         ->from('procedimento p1')
+    //         ->join('INNER JOIN', 'procedimento p2')
+    //         ->where(['p1.id' => $this->id])
+    //         ->andWhere(['=', 'p1.salaId', 'p2.salaId'])
+    //         ->andWhere(['<>', 'p1.id', 'p2.id'])
+    //         ->andWhere('
+    //             p1.inicio
+    //             BETWEEN p2.inicio AND p2.fim)
+    //               OR (p1.fim
+    //             BETWEEN p2.inicio AND p2.fim)
+    //           	  OR (p1.inicio
+    //             BETWEEN p2.inicio AND p2.fimestimado)
+    //           	  OR (p1.fimestimado
+    //             BETWEEN p2.inicio AND p2.fimestimado)
+    //           	  OR (p1.fimestimado
+    //             BETWEEN p2.inicio AND p2.fim)
+    //           	  OR (p1.fim
+    //             BETWEEN p2.inicio AND p2.fimestimado
+    //         ')
+    //         ->andWhere(['is', 'p2.excluido', null])
+    //         ->one();
+    //
+    //     $cirurgiaconflito = ArrayHelper::toArray($conflito, [
+    //         'app\models\Procedimento' => [
+    //             'id2' => 'id',
+    //             'nomeId2' => 'nomeId',
+    //             'inicio2' => 'inicio',
+    //             'fim2' => 'fim',
+    //             'fimestimado2' => 'fimestimado',
+    //         ],
+    //     ]);
+    //
+    //     // echo('</br> --------- </br>');
+    //     // var_dump($cirurgiaconflito);
+    //
+    //     $outroproced = ArrayHelper::getValue($cirurgiaconflito, 'id2');
+    //     $outroprocednomeId = ArrayHelper::getValue($cirurgiaconflito, 'nomeId2');
+    //     $outroprocedinicio = ArrayHelper::getValue($cirurgiaconflito, 'inicio2');
+    //     $outroprocedfim = ArrayHelper::getValue($cirurgiaconflito, 'fim2');
+    //     $outroprocedfimest = ArrayHelper::getValue($cirurgiaconflito, 'fimestimado2');
+    //     // echo($outroproced.'</br>'.$outroprocednomeId.'</br>'.$outroprocedinicio.'</br>'.$outroprocedfim.'</br>'.$outroprocedfimest.'</br>');
+    //     // die;
+    //
+    //     if($outroproced !== null)
+    //     {
+    //         $nomep = ProcedimentoLt::find()
+    //             ->select('nome')
+    //             ->where(['id' => $outroprocednomeId])
+    //             ->scalar();
+    //
+    //         $ini = date("d-m-Y H:i", strtotime($outroprocedinicio));
+    //         $fim = date("d-m-Y H:i", strtotime($outroprocedfim));
+    //         $fimestimado = date("d-m-Y H:i", strtotime($outroprocedfimest));
+    //
+    //         $this->addError('salaId','Já está marcado nesta sala. Sugestão: escolha outra sala e tente novamente.');
+    //         $this->addError('inicio','Outro procedimento inicia em: '.$ini);
+    //         $this->addError('fimestimado','Outro procedimento está previsto para acabar em: '.$fimestimado);
+    //
+    //         if(!empty($fim))
+    //         {
+    //             $this->addError('fim','Outro procedimento encerrou em: '.$fim);
+    //         }
+    //     }
+    // }
 
     public function duracaoEstimada()
     {

@@ -116,16 +116,4 @@ class Profissional extends \yii\db\ActiveRecord
         return $this->Categoria->nome;
     }
 
-    /* public function getProcedimentos()
-    {
-        return $this->hasMany(Procedimento::className(), ['id' => 'procedimentoId'])
-            ->viaTable('ProcedimentoProfissional', ['profissionalId' => 'id']);
-    } */
-
-    /* public function getNomeAmostra()
-    {
-        $categ = $this->getCategoriaNome();
-        return $this->nome.' - '.$categ;
-    } */
-
 }
