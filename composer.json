@@ -35,8 +35,7 @@
 		"ext-mysqli": "^7.1",
 		"ext-gettext": "*",
 		"ext-gd": "*",
-		"cornernote/yii2-softdelete": "*",
-		"dmstr/yii2-mermaid-asset": "^0.0.2"		
+		"cornernote/yii2-softdelete": "*"		
 	},
 	"require-dev" : {
 		"yiisoft/yii2-debug" : "*",

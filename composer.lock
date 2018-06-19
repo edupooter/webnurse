@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "64c7afc9611aaa7ba3fa483d488781f0",
+    "content-hash": "78992dc172989d24ad9c5d5e0415b976",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -201,45 +201,6 @@
                 "library"
             ],
             "time": "2017-03-20T19:02:00+00:00"
-        },
-        {
-            "name": "bower-asset/mermaid",
-            "version": "7.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/knsv/mermaid.git",
-                "reference": "1076d671374898a1e75b778911832da01f57b88f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/knsv/mermaid/zipball/1076d671374898a1e75b778911832da01f57b88f",
-                "reference": "1076d671374898a1e75b778911832da01f57b88f",
-                "shasum": ""
-            },
-            "type": "bower-asset-library",
-            "extra": {
-                "bower-asset-main": "dist/mermaid.slim.js",
-                "bower-asset-ignore": [
-                    "*",
-                    "!dist/",
-                    "!dist/*",
-                    "!LICENSE"
-                ]
-            },
-            "license": [
-                "MIT"
-            ],
-            "description": "Markdownish syntax for generating flowcharts, sequence diagrams, class diagrams, gantt charts and git graphs.",
-            "keywords": [
-                "class diagram",
-                "diagram",
-                "flowchart",
-                "gantt",
-                "git graph",
-                "markdown",
-                "sequence diagram"
-            ],
-            "time": "2017-06-04T04:13:22+00:00"
         },
         {
             "name": "bower-asset/punycode",
@@ -508,43 +469,6 @@
                 "silex"
             ],
             "time": "2018-01-03T09:49:51+00:00"
-        },
-        {
-            "name": "dmstr/yii2-mermaid-asset",
-            "version": "0.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/dmstr/yii2-mermaid-asset.git",
-                "reference": "ee7dee5f9795149d85d497d49eec1da2110cd1f0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dmstr/yii2-mermaid-asset/zipball/ee7dee5f9795149d85d497d49eec1da2110cd1f0",
-                "reference": "ee7dee5f9795149d85d497d49eec1da2110cd1f0",
-                "shasum": ""
-            },
-            "require": {
-                "bower-asset/mermaid": "^7.0.3",
-                "yiisoft/yii2": "2.0.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "dmstr\\web\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Tobias Munk",
-                    "email": "tobias@diemeisterei.de"
-                }
-            ],
-            "description": "Mermaid asset bundle for Yii 2.0 Framework",
-            "time": "2017-07-10T10:16:54+00:00"
         },
         {
             "name": "doctrine/lexer",
@@ -2885,16 +2809,16 @@
         },
         {
             "name": "myclabs/deep-copy",
-            "version": "1.8.0",
+            "version": "1.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "478465659fd987669df0bd8a9bf22a8710e5f1b6"
+                "reference": "3e01bdad3e18354c3dce54466b7fbe33a9f9f7f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/478465659fd987669df0bd8a9bf22a8710e5f1b6",
-                "reference": "478465659fd987669df0bd8a9bf22a8710e5f1b6",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/3e01bdad3e18354c3dce54466b7fbe33a9f9f7f8",
+                "reference": "3e01bdad3e18354c3dce54466b7fbe33a9f9f7f8",
                 "shasum": ""
             },
             "require": {
@@ -2929,7 +2853,7 @@
                 "object",
                 "object graph"
             ],
-            "time": "2018-05-29T17:25:09+00:00"
+            "time": "2018-06-11T23:09:50+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -2983,16 +2907,16 @@
         },
         {
             "name": "phpoffice/phpspreadsheet",
-            "version": "1.2.1",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPOffice/PhpSpreadsheet.git",
-                "reference": "36acc372875c4d894dc093825ce4f62209db5a76"
+                "reference": "aa5b0d0236c907fd8dba0883f3ceb97cc52e46ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/36acc372875c4d894dc093825ce4f62209db5a76",
-                "reference": "36acc372875c4d894dc093825ce4f62209db5a76",
+                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/aa5b0d0236c907fd8dba0883f3ceb97cc52e46ec",
+                "reference": "aa5b0d0236c907fd8dba0883f3ceb97cc52e46ec",
                 "shasum": ""
             },
             "require": {
@@ -3065,7 +2989,7 @@
                 "xls",
                 "xlsx"
             ],
-            "time": "2018-04-10T03:53:16+00:00"
+            "time": "2018-06-12T13:40:21+00:00"
         },
         {
             "name": "pimple/pimple",
@@ -3267,12 +3191,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ramosisw/yii2-material-dashboard.git",
-                "reference": "260866084d939d7b8aa38d2f8c1385dec8d0b600"
+                "reference": "1677f564129f71d64f7749d95b3f3ad40886e859"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ramosisw/yii2-material-dashboard/zipball/260866084d939d7b8aa38d2f8c1385dec8d0b600",
-                "reference": "260866084d939d7b8aa38d2f8c1385dec8d0b600",
+                "url": "https://api.github.com/repos/ramosisw/yii2-material-dashboard/zipball/1677f564129f71d64f7749d95b3f3ad40886e859",
+                "reference": "1677f564129f71d64f7749d95b3f3ad40886e859",
                 "shasum": ""
             },
             "require": {
@@ -3313,7 +3237,7 @@
                 "theme",
                 "yii2"
             ],
-            "time": "2018-01-31T14:43:33+00:00"
+            "time": "2018-06-14T14:37:58+00:00"
         },
         {
             "name": "setasign/fpdi",
