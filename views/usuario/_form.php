@@ -23,9 +23,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'hospital')->radioList([
         'HCPA'=>'HCPA',
         'HDP'=>'HDP',
-        'HDVS'=>'HDVS',
         'ICFUC'=>'ICFUC',
-        'HMD'=>'HMD'
       ]);
     ?>
 

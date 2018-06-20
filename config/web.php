@@ -60,9 +60,7 @@ $config = [
         'webnursetcc' => require(__DIR__ . '/db.php'),
         'HCPA' => require(__DIR__ . '/hcpa.php'),
         'HDP' => require(__DIR__ . '/hdp.php'),
-        'HDVS' => require(__DIR__ . '/hdvs.php'),
         'ICFUC' => require(__DIR__ . '/icfuc.php'),
-        'HMD' => require(__DIR__ . '/hmd.php'),
 
         'urlManager' => [
             'enablePrettyUrl' => true,
