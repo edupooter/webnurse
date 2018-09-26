@@ -67,7 +67,7 @@ class ProcedimentoController extends Controller
         // define filtro padrão de início últimas 12 horas e fim próximas 24 horas
         //$searchModel->inicio = date('Y-m-d H:i', \yii::$app->formatter->asTimestamp(('-12 hour')));
         //$searchModel->fim = date('Y-m-d H:i', \yii::$app->formatter->asTimestamp(('+168 hour')));
-        //$searchModel->fimestimado = date('Y-m-d H:i', \yii::$app->formatter->asTimestamp(('+168 hour')));
+        $searchModel->fimestimado = date('Y-m-d H:i', \yii::$app->formatter->asTimestamp(('+12 hour')));
 
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

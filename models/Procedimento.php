@@ -73,7 +73,7 @@ class Procedimento extends \yii\db\ActiveRecord
             [['salaId', 'inicio'], 'unique', 'targetAttribute' => ['salaId', 'inicio'],
                   'message' => 'Já existe outro procedimento marcado para esta sala neste horário.'],
 
-            [['inicio', 'fim'], 'validaDatas', 'skipOnEmpty' => true],
+            [['fim'], 'validaDatas', 'skipOnEmpty' => true],
             [['situacaoId'], 'definefim'],
             [['inicio', 'fimestimado'], 'validaDatasEstimado'],
             //[['inicio'], 'validaConflitoSalaHorario'],
@@ -124,7 +124,7 @@ class Procedimento extends \yii\db\ActiveRecord
     public function validaDatas()
     {
         $agora = Yii::$app->formatter->asDateTime('now', 'php:Y-m-d H:i:s');
-        if(strtotime($this->fim) < strtotime($this->inicio) || strtotime($this->fim) < strtotime($agora))
+        if(strtotime($this->fim) < strtotime($this->inicio))// || strtotime($this->fim) < strtotime($agora))
         {
             //$this->addError('inicio','O início da cirurgia deve ser anterior ao fim da mesma.');
             $this->addError('fim','O fim deve ser posterior ao início do procedimento. Verifique a hora de início e fim.');
@@ -134,12 +134,12 @@ class Procedimento extends \yii\db\ActiveRecord
     public function validaDatasEstimado()
     {
         $agora = Yii::$app->formatter->asDateTime('now', 'php:Y-m-d H:i:s');
-        if(strtotime($this->fimestimado) < strtotime($this->inicio) || strtotime($this->fimestimado) < strtotime($agora))
+        if(strtotime($this->fimestimado) < strtotime($this->inicio))// || strtotime($this->fimestimado) < strtotime($agora))
         {
             $this->addError('fimestimado','O fim estimado deve ser posterior ao início do procedimento. Verifique a hora de início e fim estimado.');
-        } elseif (strtotime($this->fimestimado) < $agora) {
-            $this->addError('fimestimado','O fim estimado deve ser posterior ao início do procedimento. Verifique a hora de início e fim estimado.');
-        }
+        } //elseif (strtotime($this->fimestimado) < $agora) {
+        //     $this->addError('fimestimado','O fim estimado deve ser posterior ao início do procedimento. Verifique a hora de início e fim estimado.');
+        // }
     }
 
     public function definefim()
