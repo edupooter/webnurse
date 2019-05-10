@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "78992dc172989d24ad9c5d5e0415b976",
+    "content-hash": "a674749e76f4e9eca258c60d4b05ed6c",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -632,6 +632,50 @@
                 "package"
             ],
             "time": "2019-05-01T11:47:39+00:00"
+        },
+        {
+            "name": "heroku/heroku-buildpack-php",
+            "version": "v155",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/heroku/heroku-buildpack-php.git",
+                "reference": "2b160ad695cbef0d0adbd459ec161584f05e30ce"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/heroku/heroku-buildpack-php/zipball/2b160ad695cbef0d0adbd459ec161584f05e30ce",
+                "reference": "2b160ad695cbef0d0adbd459ec161584f05e30ce",
+                "shasum": ""
+            },
+            "bin": [
+                "bin/heroku-hhvm-apache2",
+                "bin/heroku-hhvm-nginx",
+                "bin/heroku-php-apache2",
+                "bin/heroku-php-nginx"
+            ],
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "David Zuelke",
+                    "email": "dz@heroku.com"
+                }
+            ],
+            "description": "Toolkit for starting a PHP application locally, with or without foreman, using the same config for PHP/HHVM and Apache2/Nginx as on Heroku",
+            "homepage": "https://github.com/heroku/heroku-buildpack-php",
+            "keywords": [
+                "apache",
+                "apache2",
+                "foreman",
+                "heroku",
+                "hhvm",
+                "nginx",
+                "php"
+            ],
+            "time": "2019-05-09T21:07:40+00:00"
         },
         {
             "name": "kartik-v/bootstrap-fileinput",
@@ -4663,50 +4707,6 @@
                 "fixtures"
             ],
             "time": "2018-07-12T10:23:15+00:00"
-        },
-        {
-            "name": "heroku/heroku-buildpack-php",
-            "version": "v155",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/heroku/heroku-buildpack-php.git",
-                "reference": "2b160ad695cbef0d0adbd459ec161584f05e30ce"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/heroku/heroku-buildpack-php/zipball/2b160ad695cbef0d0adbd459ec161584f05e30ce",
-                "reference": "2b160ad695cbef0d0adbd459ec161584f05e30ce",
-                "shasum": ""
-            },
-            "bin": [
-                "bin/heroku-hhvm-apache2",
-                "bin/heroku-hhvm-nginx",
-                "bin/heroku-php-apache2",
-                "bin/heroku-php-nginx"
-            ],
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "David Zuelke",
-                    "email": "dz@heroku.com"
-                }
-            ],
-            "description": "Toolkit for starting a PHP application locally, with or without foreman, using the same config for PHP/HHVM and Apache2/Nginx as on Heroku",
-            "homepage": "https://github.com/heroku/heroku-buildpack-php",
-            "keywords": [
-                "apache",
-                "apache2",
-                "foreman",
-                "heroku",
-                "hhvm",
-                "nginx",
-                "php"
-            ],
-            "time": "2019-05-09T21:07:40+00:00"
         },
         {
             "name": "phpspec/php-diff",
