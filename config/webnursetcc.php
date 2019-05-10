@@ -6,7 +6,7 @@ return [
     // MySQL
     'dsn' => 'mysql:host=localhost;dbname=webnursetcc',
     'username' => 'root',
-    'password' => '',
+    'password' => 'secret',
     'charset' => 'utf8',
 
 ];
