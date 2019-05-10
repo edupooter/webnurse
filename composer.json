@@ -35,8 +35,7 @@
 		"ext-mysqli": "^7.1",
 		"ext-gettext": "*",
 		"ext-gd": "*",
-		"cornernote/yii2-softdelete": "*",
-		"heroku/heroku-buildpack-php": "*"
+		"cornernote/yii2-softdelete": "*"
 	},
 	"require-dev" : {
 		"yiisoft/yii2-debug" : "*",
